@@ -209,9 +209,8 @@ your own tool for any step.
 | **Reporting & webhooks** | ✅ Reports and webhooks · `API` | Jason's analyst |
 | **CRM** | ✅ Two-way sync with HubSpot, Salesforce, Pipedrive | Your CRM's own MCP |
 | **Meetings** | ✅ Booking links on Google Calendar or Calendly | Cal.com · Chili Piper |
-| **Research** | | Jason's researcher, on your agent's own web access · Clay · BuiltWith |
-| **The thinking** | | Your Claude Code plan |
-| **Memory, plans, approvals** | | **Jason** |
+| **Research** | ✅ Jason's researcher, on your Claude Code or Codex plan | Clay · BuiltWith |
+| **The thinking** | ✅ Your Claude Code or Codex plan | Your Claude Code or Codex plan |
 
 <sub>✅ in Reply today · `API` your agent can also drive it through Reply's API</sub>
 
