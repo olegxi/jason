@@ -4,6 +4,8 @@
 
 ### The AI SDR that runs on your AI.
 
+**It works through the Claude Code plan you already pay for. No model API bill, no seats.**
+
 Turn the agent you already use into an SDR that keeps working after the chat ends.<br>
 Nine specialists, a plan for every person, and nothing sent without your yes.
 
@@ -12,7 +14,7 @@ Nine specialists, a plan for every person, and nothing sent without your yes.
 [![Platforms](https://img.shields.io/badge/macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-local--first-2F6FEB)](#quick-start)
 [![License](https://img.shields.io/badge/skills%20%26%20plugins-MIT-3DA639)](#license)
 
-[Quick start](#quick-start) · [What you get](#what-you-get) · [The team](#the-team) · [Channels](#channels-and-providers) · [Pricing](#what-it-costs) · [Compare](#how-it-compares) · [Philosophy](#philosophy)
+[Quick start](#quick-start) · [What you get](#what-you-get) · [The team](#the-team) · [Your stack](#your-outbound-stack) · [Pricing](#what-it-costs) · [Compare](#how-it-compares) · [Philosophy](#philosophy)
 
 </div>
 
@@ -51,12 +53,13 @@ Unlike a chat, it doesn't forget. Unlike a sequencer, it doesn't treat everyone 
 
 ## Contents
 
+- [Runs on your Claude Code plan](#runs-on-your-claude-code-plan)
 - [What you get](#what-you-get)
 - [How it works](#how-it-works)
 - [Just ask](#just-ask)
 - [The team](#the-team)
 - [Nothing reaches a person without you](#nothing-reaches-a-person-without-you)
-- [Channels and providers](#channels-and-providers)
+- [Your outbound stack](#your-outbound-stack)
 - [Make it yours](#make-it-yours)
 - [What it costs](#what-it-costs)
 - [How it compares](#how-it-compares)
@@ -66,6 +69,32 @@ Unlike a chat, it doesn't forget. Unlike a sequencer, it doesn't treat everyone 
 - [FAQ](#faq)
 - [Philosophy](#philosophy)
 - [License](#license)
+
+---
+
+## Runs on your Claude Code plan
+
+Most AI SDRs resell you a model. The tokens are baked into the price of every seat, and to protect that margin they
+ration the thinking: shorter prompts, cheaper models, fewer passes over each draft.
+
+Jason ships no model at all. Your own session and the nine background roles run in **Claude Code, under the login you
+already have.** A Claude Pro, Max or Ultra plan covers the thinking, within its usage limits. There's no API key to manage,
+and no per-token bill that grows every time a role thinks twice.
+
+**Why it matters**
+
+- **You don't pay for AI twice.** The thinking is covered by a plan you already have. Jason itself is free. What you
+  pay for is what actually goes out: the sends, through your provider.
+- **Better messages, not cheaper ones.** Every draft is written with the strongest model your plan gives you, and
+  reviewed by a second role before you see it. No vendor's budget model in between.
+- **Model calls only where judgment is needed.** The runtime does the bookkeeping in plain code: what's due, who's
+  next, what's waiting, what failed. The model is called for research, writing, reviewing and reading replies.
+- **It grows with your agent.** When Claude Code gets a better model or a new feature, Jason gets it the same day.
+- **Your context is already there.** The same agent that knows your files, your notes and your connected tools does
+  the selling.
+- **Your keys stay yours.** Jason holds no model credentials. It has nowhere to put one.
+
+Claude Code today. Codex and other agents are next, as each one is verified.
 
 ---
 
@@ -176,22 +205,88 @@ Jason does as much as it can on its own, and nothing that should be yours.
 
 ---
 
-## Channels and providers
+## Your outbound stack
 
-**Jason brings no channels of its own: your provider does.** That's what makes it flexible. The runtime is
-provider-independent, and every integration is a plugin against published, open contracts.
+A harness alone doesn't send a single email. Outbound also needs infrastructure: someone to find the people, mailboxes
+to send from, a warm reputation, an inbox that catches replies. **Jason brings no channels of its own: your tools do.**
+Pick one for every step, or connect Reply once and have nearly all of it behind one account.
 
-| | |
-|---|---|
-| **Reply** · ready out of the box | Email, LinkedIn messages, InMail, LinkedIn voice messages and connection requests, the unified inbox, and deliverability, all from one Reply account. You open Reply once to connect your mailboxes and LinkedIn; everything else happens through your agent. |
-| **Any other provider** | Plug it in. Reply's own plugin uses exactly the same public mechanism yours would, with no private path. One provider per campaign, or different ones for different campaigns. |
-| **Notifications** | Desktop notifications, and phone pushes through ntfy. |
+| Step | Your options | In Reply |
+|---|---|:-:|
+| **Find people & companies** | **Reply Live Data** · Apollo · ZoomInfo · Clay · Lusha · your CSV or CRM | 🔜 |
+| **Find emails & phones** | **Reply enrichment** · Hunter · Prospeo · Findymail | 🔜 |
+| **Verify emails** | **Reply validation** · ZeroBounce · Bouncer · MillionVerifier | ✅ |
+| **Domains & mailboxes** | **Reply**: buy a domain with mailboxes, or connect Gmail, Microsoft 365, SMTP · Google Workspace · Mailforge · Zapmail | ✅ |
+| **Warm-up & deliverability** | **Reply**: MailToaster warm-up, ramp-up, domain health checks · Lemwarm · TrulyInbox · Warmy | ◐ |
+| **Email** | **Reply** sequences and direct email · Instantly · Smartlead · lemlist | ✅ |
+| **LinkedIn** | **Reply**: messages, InMail, connection requests, voice and AI voice messages · HeyReach · Expandi · Dripify | ✅ |
+| **Calls, SMS, WhatsApp** | **Reply** Cloud Calls, SMS and WhatsApp steps · Aircall · JustCall · Orum | ◐ |
+| **Inbox & replies** | **Reply** unified inbox for email and LinkedIn · your own Gmail or Outlook | ✅ |
+| **Reporting & webhooks** | **Reply** reports and webhooks · Jason's analyst | ✅ |
+| **CRM** | **Reply** two-way sync with HubSpot, Salesforce, Pipedrive · or your CRM's own MCP | ◐ |
+| **Meetings** | **Reply** booking links on Google Calendar or Calendly · Cal.com · Chili Piper | ◐ |
+| **Research** | Jason's researcher, on your agent's own web access · Clay · BuiltWith | — |
+| **The thinking** | Your Claude Code plan | — |
+| **Memory, plans, approvals** | **Jason** | — |
 
-**Works with what you already have**
+<sub>✅ in Reply and in its API, so your agent can drive it today · 🔜 in the Reply app today, API arriving next ·
+◐ in the Reply app · — not Reply's job</sub>
 
-| Your AI | Contacts from | Where you approve | Runs on |
-|---|---|---|---|
-| Claude Code today. The business skills follow the open Agent Skills format, so other compatible agents can read them. | A CSV, a Google Sheet, your CRM through your agent, your provider's data, public research | In the chat, or in Jason's browser UI | macOS (Apple silicon), Linux x64, Windows x64 |
+**How each tool reaches Jason.** Data, verification and research tools are used by your agent through their own MCP,
+CLI or API, and the people they find go into a Jason campaign. Sending, LinkedIn and the inbox go through a **provider
+plugin**: Reply's ships ready in this repo, and any other provider plugs into the same published contracts, with no
+private path. One provider per campaign, or different ones for different campaigns.
+
+> **Or connect Reply once.** One Reply account covers almost every row above: data, validation, mailboxes, warm-up,
+> email, LinkedIn, calls, the inbox, CRM sync and meetings. Your agent reaches it through Reply's CLI and MCP, and
+> Jason's Reply plugin ships in this repo. One login, one bill, and no glue between six tools. Jason keeps the work
+> alive; Reply is the infrastructure underneath it.
+
+<details>
+<summary><b>Bringing your own tools? Entry prices, free tiers and how your agent connects</b></summary>
+
+<br>
+
+| Step | Tool | Starts at | Free | Your agent connects via |
+|---|---|---|---|---|
+| Find people | Clay | $167/mo | 100 credits/mo | MCP · CLI |
+| | Lusha | $49.90/mo | 40 credits/mo | MCP · API |
+| | Apollo | paid plans per user | free plan | MCP |
+| | ZoomInfo | not public | trial | MCP · API |
+| Find emails | Hunter | $49/mo | 50 credits/mo | MCP · API |
+| | Findymail | $99/mo | 10 credits | MCP · API |
+| | Dropcontact | €79/mo | 50 credits | MCP · API |
+| Verify emails | ZeroBounce | $39 per 2,000 | 100/mo | MCP · API |
+| | Bouncer | $8 per 1,000 | 100 credits | MCP · API |
+| | MillionVerifier | $89 per 50,000 | 100 credits | API |
+| Mailboxes | Google Workspace | ~$7 per mailbox/mo | 14-day trial | API · CLI |
+| | Mailforge | $3 per mailbox/mo, 10 minimum | — | API |
+| | Zapmail | $39/mo for 10 mailboxes | — | API on Pro |
+| Warm-up | TrulyInbox | $29/mo | 1 mailbox free | API |
+| | Lemwarm | $29 per mailbox/mo | inside lemlist plans | — |
+| | Warmy | $49/mo | 7-day trial | MCP · API |
+| Email | Instantly | $47/mo | trial | MCP · CLI · API |
+| | Smartlead | $39/mo | trial | MCP · API |
+| | lemlist | $69/mo | 14-day trial | MCP · CLI · API |
+| LinkedIn | HeyReach | $79 per sender/mo | 14-day trial | MCP · CLI · API |
+| | Dripify | $79 per user/mo | 7-day trial | MCP · API |
+| | Expandi | $99 per seat/mo | 7-day trial | MCP |
+| Calls | JustCall | $29 per user/mo, 2 minimum | 14-day trial | MCP · API |
+| | Aircall | $30 per licence/mo, 3 minimum | test access | API |
+| Meetings | Calendly | $10 per seat/mo | free plan | MCP · API |
+| | Cal.com | $12 per user/mo | free for 1 user | API |
+| CRM | HubSpot | from $20 per seat/mo | free CRM | MCP · API |
+| | Salesforce | $25 per user/mo | free suite | API · CLI |
+| | Pipedrive | ~$14 per seat/mo | 14-day trial | MCP · API |
+
+<sub>Entry prices as listed on each vendor's site, 31 October 2026, billed annually where that's the headline. They change
+often, so check before you buy. Data and research tools reach Jason through your agent; another sending provider needs
+a Jason plugin.</sub>
+
+</details>
+
+**Also works with:** desktop notifications and phone pushes through ntfy · approvals in the chat or in Jason's browser
+UI · macOS (Apple silicon), Linux x64 and Windows x64.
 
 ---
 
@@ -214,11 +309,16 @@ Closed AI SDRs give you a settings page. Jason gives you the source of how it th
 
 | | |
 |---|---|
-| Your AI | The Claude Code plan you already pay for |
+| The thinking | Your Claude plan, from $20 a month with Claude Code included. Most likely one you already have |
 | **Jason** | **$0.** Free to install. No seats, no subscription |
-| Sending, inbox, LinkedIn, deliverability | Your provider. With Reply, you pay for what you send, not for seats |
-| A separate AI SDR platform | **None.** No per-seat AI SDR, no second sequencer, no glue scripts |
+| Infrastructure | One Reply account, paying for what you send. Or your own tools, step by step, [as above](#your-outbound-stack) |
+| A model API key | **None.** No per-token bill |
+| A per-seat AI SDR | **None.** No platform fee, no second sequencer, no glue scripts |
 | Your data | Stays on your machine. Jason collects no usage data |
+
+For comparison: assembling the stack tool by tool, with a data tool, an email finder, mailboxes, warm-up, a sender and
+a LinkedIn tool, starts at around $280 a month at entry prices, across six logins and six bills. Hosted AI SDRs are
+mostly sold by demo, on annual contracts.
 
 ---
 
@@ -376,9 +476,13 @@ Claude Code today, for both your session and the background roles. The business 
 format, so other compatible agents can read them.
 
 **Do I need Reply?**
-You need a provider for anything to reach a person. Reply's plugin ships ready, with email and LinkedIn in one account.
-Any other provider connects through a plugin. Without a provider, Jason can still plan and keep records; it just sends
-nothing.
+You need a provider for anything to reach a person. Reply's plugin ships ready, with data, mailboxes, email, LinkedIn
+and the inbox in one account. Any other provider connects through a plugin, and data tools work through your agent.
+Without a provider, Jason can still plan and keep records; it just sends nothing.
+
+**Do I need a Claude API key?**
+No. Jason runs through Claude Code under your own login, so a Claude Pro, Max or Ultra plan covers the thinking,
+within its usage limits.
 
 **I'm already a Reply customer. What changes?**
 Nothing you have to move. Jason works on the Reply account you already have. Keep your sequences running and try Jason
