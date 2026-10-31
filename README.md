@@ -1,13 +1,13 @@
 <div align="center">
 
-# Jason
+# Jason AI GTM
 
-### The AI SDR that runs on your AI.
+### Your go-to-market, run by your AI.
 
-**It works through the Claude Code plan you already pay for. No model API bill, no seats.**
+**It works with the Claude Code or Codex plan you already pay for. No model API bill, no seats.**
 
-Turn the agent you already use into an SDR that keeps working after the chat ends.<br>
-Nine specialists, a plan for every person, and nothing sent without your yes.
+Describe your idea. Jason finds the contacts, plans a line for every person, writes, sends, reads the replies<br>
+and keeps going after the chat ends. Nine specialists, and nothing sent without your yes.
 
 [![Release](https://img.shields.io/badge/release-0.22.0%20alpha-111111)](https://github.com/reply-team/jason-ai/releases/latest)
 [![Runs on](https://img.shields.io/badge/runs%20on-Claude%20Code-D97757)](#quick-start)
@@ -20,40 +20,22 @@ Nine specialists, a plan for every person, and nothing sent without your yes.
 
 ---
 
-You already ask your AI to write cold emails. Then the chat closes, and it forgets who it wrote to, who answered and
-what comes next. Monday's plan is gone by Thursday.
+Going to market takes a team: someone to find the right people, someone to write, someone to follow up, someone to read
+every reply. Your AI can already do each of those jobs. But when the chat closes, it forgets who it wrote to, who
+answered and what comes next.
 
-**Jason is the missing layer.** Your agent keeps doing the thinking. Jason gives it a sales team's playbook, a memory
-that outlives every session, and hands that reach your prospects through your provider. The work keeps going while
-you're in meetings, and every message waits for your approval.
+**Jason is the missing layer.** Tell it what you sell and who should buy it, in plain words. Jason finds the contacts,
+plans each person's line of contact, writes, sends through your provider, reads the replies and keeps the work going
+while you're in meetings. Your agent does the thinking, Jason keeps the memory, and every message waits for your
+approval.
 
-Unlike a chat, it doesn't forget. Unlike a sequencer, it doesn't treat everyone the same.
-
-```text
-› Find heads of growth at Series A fintechs in London. Email first, LinkedIn if they go quiet. Pilot of ten.
-
-  ● Campaign "London fintech · pilot" created
-    planner      a plan for each person: email on day 1, LinkedIn on day 4 if no reply
-    researcher   10 people found · 1 skipped: on your do-not-contact list
-    copywriter   10 first emails drafted, each opening on something real about that company
-    critic       2 sent back: a claim you can't prove, an outdated job title
-    ⏸  10 messages wait for your approval  →  jason ui open
-
-  … three days later. The chat is long closed. …
-
-    responder    Maya replied "ask me in January" · her follow-ups stopped, a January touch planned
-    manager      email is quiet for this group · asks you: move the rest to LinkedIn first?
-```
-
-<sub>An example session in Claude Code. The people and companies are invented.</sub>
-
-<!-- Demo GIF: install → plan a campaign → approve → send through Reply → handle a reply -->
+<!-- Demo GIF: describe the idea → contacts found → approve → send through Reply → handle a reply -->
 
 ---
 
 ## Contents
 
-- [Runs on your Claude Code plan](#runs-on-your-claude-code-plan)
+- [Runs on the plan you already pay for](#runs-on-the-plan-you-already-pay-for)
 - [What you get](#what-you-get)
 - [How it works](#how-it-works)
 - [Just ask](#just-ask)
@@ -72,12 +54,12 @@ Unlike a chat, it doesn't forget. Unlike a sequencer, it doesn't treat everyone 
 
 ---
 
-## Runs on your Claude Code plan
+## Runs on the plan you already pay for
 
-Most AI SDRs resell you a model. The tokens are baked into the price of every seat, and to protect that margin they
+Most AI sales tools resell you a model. The tokens are baked into the price of every seat, and to protect that margin they
 ration the thinking: shorter prompts, cheaper models, fewer passes over each draft.
 
-Jason ships no model at all. Your own session and the nine background roles run in **Claude Code, under the login you
+Jason ships no model at all. Your own session and the nine background roles run in **your agent, under the login you
 already have.** A Claude Pro, Max or Ultra plan covers the thinking, within its usage limits. There's no API key to manage,
 and no per-token bill that grows every time a role thinks twice.
 
@@ -94,13 +76,13 @@ and no per-token bill that grows every time a role thinks twice.
   the selling.
 - **Your keys stay yours.** Jason holds no model credentials. It has nowhere to put one.
 
-Claude Code today. Codex and other agents are next, as each one is verified.
+Claude Code today; Codex and other agents follow as each one is verified.
 
 ---
 
 ## What you get
 
-- **Your AI becomes your SDR.** No new platform to learn, no onboarding calls. You talk to Claude Code in plain words,
+- **Your AI becomes your go-to-market team.** No new platform to learn, no onboarding calls. You talk to Claude Code in plain words,
   and it runs your outbound.
 - **A memory that outlives the chat.** Every campaign, person, plan, decision and reply is kept on your machine. Close
   the laptop, restart, crash: Jason picks up exactly where it was.
@@ -127,7 +109,7 @@ Your agent is the brain. Jason is what it remembers, what it's allowed to do, an
 | Part | Like a new hire's… | What it does |
 |---|---|---|
 | 🧠 **Your agent** | Intelligence | Claude Code plans and decides with you. Jason ships no model and holds no model keys. |
-| 📘 **Skills** | Training | The SDR trade: picking accounts, writing cold email, reading replies, staying out of spam. |
+| 📘 **Skills** | Training | The trade: picking accounts, writing cold email, reading replies, staying out of spam. |
 | 🗂 **The runtime** | Notebook and calendar | One small program on your machine that keeps campaigns, plans, approvals and history, and carries the work on between sessions. |
 | ✉️ **Plugins** | Phone and inbox | Reach your provider to enrol people, send, and read replies. Reply ships ready. |
 
@@ -155,7 +137,7 @@ Day to day, it goes like this:
 
 ## Just ask
 
-No forms, no sequence builder. You say what you want the way you'd brief a great SDR:
+No forms, no sequence builder. You say what you want the way you'd brief a great sales hire:
 
 - *"Twenty CFOs at logistics companies in Poland. LinkedIn first, email if they accept."*
 - *"Re-engage everyone who went quiet last quarter, with a new angle."*
@@ -209,28 +191,29 @@ Jason does as much as it can on its own, and nothing that should be yours.
 
 A harness alone doesn't send a single email. Outbound also needs infrastructure: someone to find the people, mailboxes
 to send from, a warm reputation, an inbox that catches replies. **Jason brings no channels of its own: your tools do.**
-Pick one for every step, or connect Reply once and have nearly all of it behind one account.
 
-| Step | Your options | In Reply |
-|---|---|:-:|
-| **Find people & companies** | **Reply Live Data** · Apollo · ZoomInfo · Clay · Lusha · your CSV or CRM | 🔜 |
-| **Find emails & phones** | **Reply enrichment** · Hunter · Prospeo · Findymail | 🔜 |
-| **Verify emails** | **Reply validation** · ZeroBounce · Bouncer · MillionVerifier | ✅ |
-| **Domains & mailboxes** | **Reply**: buy a domain with mailboxes, or connect Gmail, Microsoft 365, SMTP · Google Workspace · Mailforge · Zapmail | ✅ |
-| **Warm-up & deliverability** | **Reply**: MailToaster warm-up, ramp-up, domain health checks · Lemwarm · TrulyInbox · Warmy | ◐ |
-| **Email** | **Reply** sequences and direct email · Instantly · Smartlead · lemlist | ✅ |
-| **LinkedIn** | **Reply**: messages, InMail, connection requests, voice and AI voice messages · HeyReach · Expandi · Dripify | ✅ |
-| **Calls, SMS, WhatsApp** | **Reply** Cloud Calls, SMS and WhatsApp steps · Aircall · JustCall · Orum | ◐ |
-| **Inbox & replies** | **Reply** unified inbox for email and LinkedIn · your own Gmail or Outlook | ✅ |
-| **Reporting & webhooks** | **Reply** reports and webhooks · Jason's analyst | ✅ |
-| **CRM** | **Reply** two-way sync with HubSpot, Salesforce, Pipedrive · or your CRM's own MCP | ◐ |
-| **Meetings** | **Reply** booking links on Google Calendar or Calendly · Cal.com · Chili Piper | ◐ |
-| **Research** | Jason's researcher, on your agent's own web access · Clay · BuiltWith | — |
-| **The thinking** | Your Claude Code plan | — |
-| **Memory, plans, approvals** | **Jason** | — |
+Jason is built by the team at [Reply.io](https://reply.io), so Reply covers nearly every step out of the box. Or pick
+your own tool for any step.
 
-<sub>✅ in Reply and in its API, so your agent can drive it today · 🔜 in the Reply app today, API arriving next ·
-◐ in the Reply app · — not Reply's job</sub>
+| Step | In Reply | Or connect |
+|---|---|---|
+| **Find contacts** | ✅ Live Data: 1B+ B2B contacts · *API coming soon* | Apollo · ZoomInfo · Clay · Lusha · your CSV or CRM |
+| **Find emails & phones** | ✅ Enrichment · *API coming soon* | Hunter · Prospeo · Findymail |
+| **Verify emails** | ✅ Email validation · `API` | ZeroBounce · Bouncer · MillionVerifier |
+| **Domains & mailboxes** | ✅ Buy a domain with mailboxes, or connect Gmail, Microsoft 365, SMTP · `API` | Google Workspace · Mailforge · Zapmail |
+| **Warm-up & deliverability** | ✅ MailToaster warm-up, ramp-up, domain health checks | Lemwarm · TrulyInbox · Warmy |
+| **Email** | ✅ Sequences and direct email · `API` | Instantly · Smartlead · lemlist |
+| **LinkedIn** | ✅ Messages, InMail, connection requests, voice and AI voice messages · `API` | HeyReach · Expandi · Dripify |
+| **Calls, SMS, WhatsApp** | ✅ Cloud Calls, SMS and WhatsApp steps | Aircall · JustCall · Orum |
+| **Inbox & replies** | ✅ Unified inbox for email and LinkedIn · `API` | Your own Gmail or Outlook |
+| **Reporting & webhooks** | ✅ Reports and webhooks · `API` | Jason's analyst |
+| **CRM** | ✅ Two-way sync with HubSpot, Salesforce, Pipedrive | Your CRM's own MCP |
+| **Meetings** | ✅ Booking links on Google Calendar or Calendly | Cal.com · Chili Piper |
+| **Research** | | Jason's researcher, on your agent's own web access · Clay · BuiltWith |
+| **The thinking** | | Your Claude Code plan |
+| **Memory, plans, approvals** | | **Jason** |
+
+<sub>✅ in Reply today · `API` your agent can also drive it through Reply's API</sub>
 
 **How each tool reaches Jason.** Data, verification and research tools are used by your agent through their own MCP,
 CLI or API, and the people they find go into a Jason campaign. Sending, LinkedIn and the inbox go through a **provider
@@ -423,7 +406,7 @@ No administrator rights needed.
 For the technical reader, in one screen.
 
 ```text
-   you ──── plain words ────►  your agent (Claude Code)  ◄──── skills: the SDR trade
+   you ──── plain words ────►  your agent (Claude Code)  ◄──── skills: the GTM trade
                                    │
                                    │  CLI · local Runtime API
                                    ▼
