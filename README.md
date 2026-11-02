@@ -41,7 +41,7 @@ to.
 
 | Area | What is true today | Read more |
 |---|---|---|
-| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
+| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. Written in C# today; we plan to replace C# with Rust in the runtime. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
 | **Channels** | Every channel is a plugin, and you can add your own. Connect Reply once and email and LinkedIn work right away (messages, InMail, voice messages, connection requests), with SMS and call steps inside Reply sequences. Gmail, Microsoft 365 and SMTP mailboxes connect through Reply with no code. Any other provider or channel connects through a plugin you or your agent writes: Reply's is the one that ships ready today. | [Channels](#channels) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) |
 | **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Claude Code runs your session and all nine background roles. Codex and any other agent with a shell can run your session through Jason's CLI and skills; the background roles run in Claude Code only in this release. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
 | **Search and personalization** | Find leads through Reply's Live Data API (1B+ B2B contacts, with a preview of the audience size before you spend credits), or through your own tools: anything your agent can reach, a CSV, your CRM. A Researcher and a Personalizer role work per person. Jason has no contact database of its own. | [Finding leads](#finding-leads) |
@@ -522,6 +522,8 @@ For the technical reader, in one screen.
 
 - **One executable, three modes.** The runtime owns all state. The CLI, the browser UI and your agent are all clients
   of the same local API. The source is public under MIT.
+- **C# today, Rust planned.** The runtime is written in C# on .NET and ships as a self-contained build, so you don't
+  need .NET installed. We plan to replace C# with Rust. The plan covers the runtime only.
 - **Durable by design.** Work items are claimed under a lease with one live attempt at a time. Migrations back up
   first. Updates finish or roll back, even if the machine dies halfway.
 - **Contracts, not glue.** Every provider operation is a published, machine-readable contract, checked when the work is
