@@ -420,7 +420,7 @@ Reply.io.
 
 - **Founders** doing their own outbound, who want to test a market this week without hiring an SDR or buying a seat.
 - **Solo GTM operators** who already live in Claude Code and are tired of prompts, spreadsheets and an AI that forgets.
-- **Small agencies** running a separate campaign per client, each with its own approvals, history and provider account.
+- **Sales Agencies** running a separate campaign per client, each with its own approvals, history and provider account.
 - **GTM engineers and RevOps** who want to shape every rule, role and data source, with no vendor roadmap to wait for.
 - **Teams with strict rules,** in finance or healthcare, who need their own checklist on every message and a human yes
   on every send.
@@ -439,40 +439,24 @@ Reply.io.
 **Installing Jason should be the easy part: one prompt, one program, nothing to configure by hand.** Here is what that
 means today.
 
-- **What you do:** paste one prompt into your agent and say yes to what it asks. Your agent does the rest and tells you exactly
-  what it ran and what it changed.
+- **What you do:** paste one prompt into your agent. It guides you through the rest and asks only when it needs you.
 - **What it installs:** one self-contained executable, under your own account. No admin rights, and no Docker, Python or Node
   for Jason itself. It needs `git` to fetch its skills.
 - **How long it takes:** 16 seconds from nothing to `Ready` for the executable, the role skills, the browser UI and the
-  start, measured on an Apple-silicon Mac with Jason 0.24.0. Your agent reading the guide and asking you first takes
-  longer, and so does connecting your provider.
+  start, measured on an Apple-silicon Mac with Jason 0.24.0. Your agent working through the guide takes longer, and so
+  does connecting your provider.
 - **How you know it worked:** `jason status --human` checks everything, and each failed check names the command that fixes it.
 - **What you don't need:** a server, a mock provider, a hosted account or an onboarding call.
 - **How you take it off:** `jason uninstall`.
 
-**1. Paste this into your agent.** It asks before it changes anything, installs Jason, and checks it's ready.
+**1. Paste this into your agent.** It installs Jason, checks it's ready and guides you to your first campaign.
 
 ```text
-Install Jason on this machine. The instructions are
-<https://raw.githubusercontent.com/reply-team/jason-ai/main/docs/INSTALL.md>. Read all of it
-first, the whole file word for word rather than a summary of it.
+Install Jason on this machine by following
+<https://raw.githubusercontent.com/reply-team/jason-ai/main/docs/INSTALL.md>.
 
-Before you run anything, ask me one question in plain words: what you will install and from
-where, what it writes and where (the executable and its directory, the PATH entry, Jason's data
-directory, the role skills), and each act the instructions mark "Ask first", offered to me one by
-one as a choice. Offer me the other way too: switching this session to a mode that asks me before
-every command. Then do the steps yourself, in order from section 2, doing only what I said yes to.
-
-Jason is downloaded from its releases at <https://get.jasonharness.ai/releases/>, which redirect to
-<https://github.com/reply-team/jason-ai/releases>; install it from there, or with the package
-section 2 names for this platform.
-
-Jason is released under the MIT licence:
-<https://github.com/reply-team/jason-ai/blob/main/LICENSE>.
-
-At the end, tell me whether Jason can start work, what the next step is, and exactly what you ran
-and what it changed. If it can, ask me once whether I want a synthetic walk to meet Jason first or
-my real work at once.
+Do the setup yourself and guide me step by step. Ask me only when you need my input.
+When it's ready, tell me what you changed and help me start my first campaign.
 ```
 
 <details>
