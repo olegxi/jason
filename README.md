@@ -9,12 +9,12 @@
 Describe your idea. Jason finds the contacts, plans a line for every person, writes, sends, reads the replies<br>
 and keeps going after the chat ends. Nine specialists, and nothing sent without your yes.
 
-[![Release](https://img.shields.io/badge/release-0.22.0%20alpha-111111)](https://github.com/reply-team/jason-ai/releases/latest)
+[![Release](https://img.shields.io/badge/release-0.24.0%20alpha-111111)](https://github.com/reply-team/jason-ai/releases/latest)
 [![Runs on](https://img.shields.io/badge/runs%20on-Claude%20Code-D97757)](#quick-start)
 [![Platforms](https://img.shields.io/badge/macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-local--first-2F6FEB)](#quick-start)
-[![License](https://img.shields.io/badge/skills%20%26%20plugins-MIT-3DA639)](#license)
+[![License](https://img.shields.io/badge/license-MIT%2C%20runtime%20included-3DA639)](#license)
 
-[Quick start](#quick-start) · [What you get](#what-you-get) · [The team](#the-team) · [Your stack](#your-outbound-stack) · [Pricing](#what-it-costs) · [Compare](#how-it-compares) · [Philosophy](#philosophy)
+[At a glance](#at-a-glance) · [Quick start](#quick-start) · [What you get](#what-you-get) · [The team](#the-team) · [Your stack](#your-outbound-stack) · [Pricing](#what-it-costs) · [Compare](#how-it-compares) · [Docs](#documentation)
 
 </div>
 
@@ -33,8 +33,32 @@ approval.
 
 ---
 
+## At a glance
+
+The facts in one table, for a person or an AI agent comparing Jason with anything else. Checked against Jason 0.24.0 on
+2 November 2026. The whole product is open source, so every line can be checked against the code and the pages it links
+to.
+
+| Area | What is true today | Read more |
+|---|---|---|
+| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
+| **Channels** | Every channel is a plugin, and you can add your own. Connect Reply once and email and LinkedIn work right away (messages, InMail, voice messages, connection requests), with SMS and call steps inside Reply sequences. Gmail, Microsoft 365 and SMTP mailboxes connect through Reply with no code. Any other provider or channel connects through a plugin you or your agent writes: Reply's is the one that ships ready today. | [Channels](#channels) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) |
+| **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Claude Code runs your session and all nine background roles. Codex and any other agent with a shell can run your session through Jason's CLI and skills; the background roles run in Claude Code only in this release. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
+| **Search and personalization** | Find leads through Reply's Live Data API (1B+ B2B contacts, with a preview of the audience size before you spend credits), or through your own tools: anything your agent can reach, a CSV, your CRM. A Researcher and a Personalizer role work per person. Jason has no contact database of its own. | [Finding leads](#finding-leads) |
+| **Deliverability and warm-up** | Deliverability modules ship with Jason: sending and LinkedIn guardrail skills (authentication, warm-up, pacing, bounces, recovery) and a Deliverability role that reads bounces, opt-outs and failures and can pause a campaign at once. Warm-up itself runs in the provider you connect: Reply, or TrulyInbox, Lemwarm, Warmy and others. Jason has no warm-up engine of its own. | [Deliverability](#deliverability-and-warm-up) |
+| **Human in the loop** | Every operation that reaches a real person waits for a person's approval, in the chat or the browser UI. It is written into the operation's contract, not left to a setting, and there is no autopilot mode. Enrolment into a provider's sequence is approved once per person; the provider then sends that sequence's steps. | [Nothing reaches a person without you](#nothing-reaches-a-person-without-you) |
+| **Integrations and CRM** | Any integration you can connect to Claude Code works: MCP server, CLI or API. Your agent connects it and uses it, with no Jason connector needed. HubSpot, Salesforce and Pipedrive sync two ways through Reply, or connect through the CRM's own MCP. Phone pushes go through ntfy. | [Any other integration](#any-other-integration) |
+| **Installation** | One prompt pasted into your agent, or one line in a shell. One self-contained executable under your own account, with no admin rights and no Docker, Python or Node for Jason itself. Measured on a Mac: 16 seconds from nothing to `Ready`. | [Quick start](#quick-start) · [Install guide](https://github.com/reply-team/jason-ai/blob/main/docs/INSTALL.md) |
+| **Documentation** | 18 guides, 24 operation contracts in Markdown and JSON with 547 test fixtures, a catalogue of 325 SDR operations, a page per skill, release notes, a self-check and a troubleshooting skill. | [Documentation](#documentation) |
+| **Extensibility** | Skills and roles are plain Markdown you can edit. Plugins are small JavaScript packages against published contracts, with no private path: Reply's uses the same door as yours. You can register new roles and build on the Runtime API. | [Make it yours](#make-it-yours) |
+| **Maturity** | Alpha, and young. The runtime's source and the public history opened with 0.24.0 on 1 November 2026, so the community is still small. The repository carries about 700 .NET test files and a UI test suite, with CI on macOS, Linux and Windows. 24 of the 25 skills are still marked `draft`, meaning no agent host has yet been recorded reading that exact text. | [Releases](https://github.com/reply-team/jason-ai/releases) · [Skills](https://github.com/reply-team/jason-ai/blob/main/skills/README.md) |
+| **Security and compliance** | No telemetry. Campaign data stays on your machine. Plugins run in their own short-lived process, only with the programs and hosts you granted, and are digest-checked. The provider's CLI holds the credential, so Jason never sees it. The do-not-contact list never relaxes. Staying within the law where you send stays your job. | [What leaves your machine](#under-the-hood) · [Responsible use](https://github.com/reply-team/jason-ai/blob/main/docs/responsible-use.md) |
+
+---
+
 ## Contents
 
+- [At a glance](#at-a-glance)
 - [Runs on the plan you already pay for](#runs-on-the-plan-you-already-pay-for)
 - [What you get](#what-you-get)
 - [How it works](#how-it-works)
@@ -48,6 +72,7 @@ approval.
 - [Who it's for](#who-its-for)
 - [Quick start](#quick-start)
 - [Under the hood](#under-the-hood)
+- [Documentation](#documentation)
 - [FAQ](#faq)
 - [Philosophy](#philosophy)
 - [License](#license)
@@ -59,9 +84,19 @@ approval.
 Most AI sales tools resell you a model. The tokens are baked into the price of every seat, and to protect that margin they
 ration the thinking: shorter prompts, cheaper models, fewer passes over each draft.
 
-Jason ships no model at all. Your own session and the nine background roles run in **your agent, under the login you
-already have.** A Claude Pro, Max or Ultra plan covers the thinking, within its usage limits. There's no API key to manage,
-and no per-token bill that grows every time a role thinks twice.
+Jason ships no model at all. It runs in **your agent, under the login you already have,** on a Claude Code or Codex
+subscription, within its usage limits. There's no API key to manage, nothing to connect, and no per-token bill that grows
+every time a role thinks twice.
+
+| Your agent | Your session: plan, approve, drive Jason | The nine background roles | What you pay |
+|---|---|---|---|
+| **Claude Code** | ✅ Yes, and the one we verify against | ✅ Yes | A Claude Pro, Max or Ultra plan. No API key |
+| **Codex** | ✅ Through Jason's CLI and skills | Not in this release | Your Codex plan. No API key |
+| **Any other agent with a shell** | ✅ Through Jason's CLI and skills | Not in this release | That agent's own plan |
+
+Jason is a plain command-line program and its skills are plain Markdown, so any agent that can run a command can operate
+it. The background roles need a launcher for each host, and Claude Code is the host this release can launch: without it
+the roles wait, and your own session keeps working.
 
 **Why it matters**
 
@@ -71,18 +106,16 @@ and no per-token bill that grows every time a role thinks twice.
   reviewed by a second role before you see it. No vendor's budget model in between.
 - **Model calls only where judgment is needed.** The runtime does the bookkeeping in plain code: what's due, who's
   next, what's waiting, what failed. The model is called for research, writing, reviewing and reading replies.
-- **It grows with your agent.** When Claude Code gets a better model or a new feature, Jason gets it the same day.
+- **It grows with your agent.** When your agent gets a better model or a new feature, Jason gets it the same day.
 - **Your context is already there.** The same agent that knows your files, your notes and your connected tools does
   the selling.
 - **Your keys stay yours.** Jason holds no model credentials. It has nowhere to put one.
-
-Claude Code today; Codex and other agents follow as each one is verified.
 
 ---
 
 ## What you get
 
-- **Your AI becomes your go-to-market team.** No new platform to learn, no onboarding calls. You talk to Claude Code in plain words,
+- **Your AI becomes your go-to-market team.** No new platform to learn, no onboarding calls. You talk to your agent in plain words,
   and it runs your outbound.
 - **A memory that outlives the chat.** Every campaign, person, plan, decision and reply is kept on your machine. Close
   the laptop, restart, crash: Jason picks up exactly where it was.
@@ -94,8 +127,9 @@ Claude Code today; Codex and other agents follow as each one is verified.
   the browser.
 - **Never a double-send.** If a send is interrupted, Jason marks it unclear and hands it back to you. It never retries
   on its own.
-- **Every channel your provider has.** With Reply that's email and LinkedIn from one account, with the inbox and
-  deliverability handled. Or bring any other provider through a plugin.
+- **Every channel, and room for your own.** Connect Reply once and email and LinkedIn work right away, with SMS and call
+  steps in the same sequences, and the inbox and warm-up handled. Or add any provider or channel of your own through a
+  plugin.
 - **Yours to change.** Every skill and role is plain text. Want a compliance check before anything goes to a bank? Ask
   your AI to add it.
 
@@ -108,10 +142,10 @@ Your agent is the brain. Jason is what it remembers, what it's allowed to do, an
 
 | Part | Like a new hire's… | What it does |
 |---|---|---|
-| 🧠 **Your agent** | Intelligence | Claude Code plans and decides with you. Jason ships no model and holds no model keys. |
+| 🧠 **Your agent** | Intelligence | Claude Code, Codex or another agent plans and decides with you. Jason ships no model and holds no model keys. |
 | 📘 **Skills** | Training | The trade: picking accounts, writing cold email, reading replies, staying out of spam. |
 | 🗂 **The runtime** | Notebook and calendar | One small program on your machine that keeps campaigns, plans, approvals and history, and carries the work on between sessions. |
-| ✉️ **Plugins** | Phone and inbox | Reach your provider to enrol people, send, and read replies. Reply ships ready. |
+| ✉️ **Plugins** | Phone and inbox | Reach your channels to enrol people, send, and read replies. Reply ships ready; add your own the same way. |
 
 Three owners, who never trade places: **your provider** owns the channels, the sending and the inbox. **Jason** owns
 the line: who is contacted, about what, and what was decided for each person. **You** own the goals, the approvals and
@@ -128,7 +162,8 @@ Day to day, it goes like this:
 1. **Install with one prompt.** Paste it into Claude Code; your agent installs Jason and checks it's ready.
 2. **Describe your campaign** in your own words, a link, a file or a voice note. Jason asks what's missing, one
    question at a time, like a new hire would.
-3. **Bring contacts or let Jason find them:** a CSV, a Google Sheet, your CRM, your provider's data, or public research.
+3. **Bring contacts or let Jason find them:** Reply's Live Data API, your own search tools, a CSV, a Google Sheet, your CRM,
+   or public research.
 4. **Approve the first message.** Your feedback ("too formal", "always mention a customer result") becomes a rule.
 5. **Start small.** A pilot of ten, every message approved. Jason reports what's working; you decide whether to grow it.
 6. **It reacts.** Replies, objections, out-of-office and silence each change the plan for that one person.
@@ -164,8 +199,8 @@ Instead of one AI doing everything, the work is split the way a good sales team 
 | **Analyst** | Tells you what's working | "LinkedIn gets twice the replies of email for this group." |
 | **Deliverability** | Keeps your mail out of spam | Slows a mailbox that's starting to slip |
 
-The roles run in the background in Claude Code. When one can't safely decide something, it asks you, and the work
-waits for your answer in whichever session you give it.
+The roles run in the background in Claude Code, on your plan. When one can't safely decide something, it asks you, and the
+work waits for your answer in whichever session you give it.
 
 ---
 
@@ -190,38 +225,91 @@ Jason does as much as it can on its own, and nothing that should be yours.
 ## Your outbound stack
 
 A harness alone doesn't send a single email. Outbound also needs infrastructure: someone to find the people, mailboxes
-to send from, a warm reputation, an inbox that catches replies. **Jason brings no channels of its own: your tools do.**
+to send from, a warm reputation, an inbox that catches replies. **In Jason, all of that is pluggable. Connect Reply once and
+it's all there, or pick your own tool for any step.** Jason is built by the team at [Reply.io](https://reply.io), and no
+provider is built into the runtime, Reply included.
 
-Jason is built by the team at [Reply.io](https://reply.io), so Reply covers nearly every step out of the box. Or pick
-your own tool for any step.
+### Channels
+
+Every channel is a plugin, and there are three ways to connect one:
+
+| Way | What you do | What you get |
+|---|---|---|
+| **Reply, in one step** | Sign in once with the Reply CLI. Your agent wires up the rest | Email and LinkedIn right away: messages, InMail, voice messages and connection requests. SMS and call steps inside Reply sequences. One unified inbox for email and LinkedIn. Your mailboxes connect into Reply: Gmail, Microsoft 365 or any SMTP/IMAP account, or buy a domain with mailboxes there |
+| **Any provider, through a plugin** | Ask your agent to write a plugin, or write it yourself | Your own Gmail, Microsoft or SMTP sending, Instantly, HeyReach, a WhatsApp or Telegram tool, an in-house system. A plugin is a small JavaScript package, and it implements only the operations you need. Routes choose the plugin per campaign, or even per operation |
+| **Any tool, through your agent** | Connect it to your agent as an MCP server, CLI or API | Your agent acts with it and records what happened in Jason with `jason report submit`, so the history stays true. Jason's approval gate covers plugin operations only, so this path relies on your agent asking you first |
+
+**What ships ready today:** the Reply plugin, plus ntfy for notifications. A direct Gmail, Microsoft or SMTP connection
+without Reply is a plugin to write, not a switch to flip: the [author's guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) and the
+[contracts](https://github.com/reply-team/jason-ai/blob/main/docs/contracts/README.md) are public, one document per operation, and your agent can work from them.
+Channel names are open: a provider's campaign can run on any channel a person has an address on. One-off direct messages
+are defined for email and LinkedIn.
+
+### Finding leads
+
+Two routes, and you can mix them per campaign:
+
+- **Reply's Live Data API.** Your agent searches 1B+ B2B contacts through the Reply API: preview the audience size first,
+  then spend credits on the people you want. They land in your contacts, ready for a campaign.
+- **Your own search.** Any data tool your agent can reach: the tools listed below through their MCP, CLI or API, your CRM, a
+  CSV, a Google Sheet or public research. The people it finds go into a Jason campaign.
+
+Personalization happens per person either way. The **Researcher** finds and checks the facts, saying where each was seen
+and what it couldn't establish. The **Personalizer** makes each message about the person reading it, and the **Critic**
+sends back a claim you can't prove. Jason has no contact database of its own.
+
+### Deliverability and warm-up
+
+Jason ships the judgment; warm-up itself runs in the provider you connect.
+
+- **Sending guardrails.** A skill for domain authentication, warm-up, volume pacing, reading bounces and recovering from them.
+- **LinkedIn guardrails.** A skill for invitation pacing, messaging windows, daily limits and recovery when a platform
+  restricts an account.
+- **A Deliverability role.** It reads bounces, opt-outs and failures, says what they mean and, when a campaign has to stop,
+  pauses it at once without waiting for anyone. Performance analysis separates deliverability problems from copy and
+  targeting.
+- **Hard stops.** A do-not-contact list that never relaxes, and provider blocks that hold the work until you clear them.
+- **Warm-up, through your provider.** Connect Reply for MailToaster warm-up, ramp-up and domain health checks, or another
+  provider such as TrulyInbox, Lemwarm or Warmy. Jason has no warm-up engine of its own.
+
+### Any other integration
+
+If you can connect it to Claude Code, Jason can work with it. Hand your agent an MCP server, a CLI or an API, and it connects
+and uses it in the same session that runs your outbound: a CRM, a calendar, Slack, a data warehouse, your own internal tools.
+Nothing needs a Jason-specific connector. Programs of your own can also read and write the runtime through the documented
+[Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md).
+
+### Every step, and who can do it
+
+Reply covers nearly every step out of the box. Or pick your own tool for any of them.
 
 | Step | In Reply | Or connect |
 |---|---|---|
-| **Find contacts** | ✅ Live Data: 1B+ B2B contacts · *API coming soon* | Apollo · ZoomInfo · Clay · Lusha · your CSV or CRM |
-| **Find emails & phones** | ✅ Enrichment · *API coming soon* | Hunter · Prospeo · Findymail |
+| **Find contacts** | ✅ Live Data: 1B+ B2B contacts · `API` | Apollo · ZoomInfo · Clay · Lusha · your CSV or CRM |
+| **Find emails & phones** | ✅ Enrichment · *API coming soon, per Reply's docs late November 2026* | Hunter · Prospeo · Findymail |
 | **Verify emails** | ✅ Email validation · `API` | ZeroBounce · Bouncer · MillionVerifier |
 | **Domains & mailboxes** | ✅ Buy a domain with mailboxes, or connect Gmail, Microsoft 365, SMTP · `API` | Google Workspace · Mailforge · Zapmail |
 | **Warm-up & deliverability** | ✅ MailToaster warm-up, ramp-up, domain health checks | Lemwarm · TrulyInbox · Warmy |
 | **Email** | ✅ Sequences and direct email · `API` | Instantly · Smartlead · lemlist |
 | **LinkedIn** | ✅ Messages, InMail, connection requests, voice and AI voice messages · `API` | HeyReach · Expandi · Dripify |
-| **Calls, SMS, WhatsApp** | ✅ Cloud Calls, SMS and WhatsApp steps | Aircall · JustCall · Orum |
+| **Calls, SMS, WhatsApp** | ✅ Cloud Calls, SMS and WhatsApp steps · `API` for SMS and call steps | Aircall · JustCall · Orum |
 | **Inbox & replies** | ✅ Unified inbox for email and LinkedIn · `API` | Your own Gmail or Outlook |
 | **Reporting & webhooks** | ✅ Reports and webhooks · `API` | Jason's analyst |
 | **CRM** | ✅ Two-way sync with HubSpot, Salesforce, Pipedrive | Your CRM's own MCP |
 | **Meetings** | ✅ Booking links on Google Calendar or Calendly | Cal.com · Chili Piper |
-| **Research** | ✅ Jason's researcher, on your Claude Code or Codex plan | Clay · BuiltWith |
+| **Research** | ✅ Jason's researcher, on your agent's plan | Clay · BuiltWith |
 | **The thinking** | ✅ Your Claude Code or Codex plan | Your Claude Code or Codex plan |
 
 <sub>✅ in Reply today · `API` your agent can also drive it through Reply's API</sub>
 
 **How each tool reaches Jason.** Data, verification and research tools are used by your agent through their own MCP,
 CLI or API, and the people they find go into a Jason campaign. Sending, LinkedIn and the inbox go through a **provider
-plugin**: Reply's ships ready in this repo, and any other provider plugs into the same published contracts, with no
-private path. One provider per campaign, or different ones for different campaigns.
+plugin**: [Reply's](https://github.com/reply-team/jason-ai/blob/main/plugins/reply/README.md) ships ready, and any other provider plugs into the same published
+contracts, with no private path. One provider per campaign, or different ones for different campaigns.
 
 > **Or connect Reply once.** One Reply account covers almost every row above: data, validation, mailboxes, warm-up,
-> email, LinkedIn, calls, the inbox, CRM sync and meetings. Your agent reaches it through Reply's CLI and MCP, and
-> Jason's Reply plugin ships in this repo. One login, one bill, and no glue between six tools. Jason keeps the work
+> email, LinkedIn, calls, the inbox, CRM sync and meetings. Your agent reaches it through Reply's CLI, API and MCP, and
+> Jason's Reply plugin ships ready. One login, one bill, and no glue between six tools. Jason keeps the work
 > alive; Reply is the infrastructure underneath it.
 
 <details>
@@ -282,8 +370,11 @@ Closed AI SDRs give you a settings page. Jason gives you the source of how it th
   Your agent writes the rule where the role will read it.
 - **Your words live in plain files.** What Jason knows about your business sits in `~/Jason`, one folder per project
   and campaign, in files you can open, edit and put under git.
-- **Build a plugin** for the provider you use. The contracts are published, one document per operation, and the file
-  you read is the file the runtime enforces.
+- **Add any provider or channel with a plugin.** Ask your agent to write it, or write it yourself. The contracts are
+  published, one document per operation, and the file you read is the file the runtime enforces.
+- **Register a new role.** `jason role add` puts a role of your own beside the nine.
+- **Read and change everything.** The whole product is MIT, the runtime included, with the
+  [source on GitHub](https://github.com/reply-team/jason-ai).
 
 ---
 
@@ -291,8 +382,8 @@ Closed AI SDRs give you a settings page. Jason gives you the source of how it th
 
 | | |
 |---|---|
-| The thinking | Your Claude plan, from $20 a month with Claude Code included. Most likely one you already have |
-| **Jason** | **$0.** Free to install. No seats, no subscription |
+| The thinking | Your Claude Code or Codex plan. Claude plans with Claude Code start at $20 a month. Most likely one you already have |
+| **Jason** | **$0.** MIT-licensed. No seats, no subscription |
 | Infrastructure | One Reply account, paying for what you send. Or your own tools, step by step, [as above](#your-outbound-stack) |
 | A model API key | **None.** No per-token bill |
 | A per-seat AI SDR | **None.** No platform fee, no second sequencer, no glue scripts |
@@ -312,13 +403,14 @@ mostly sold by demo, on annual contracts.
 | A plan per person that changes when they reply | ✗ | ✗ | partly | ✓ |
 | Thinks with **your** AI | ✓ | ✗ | ✗ | ✓ |
 | Every message waits for your yes | you send by hand | ✗ | optional | ✓ |
-| You can rewrite how it works | prompts | settings | settings | every skill and role |
+| You can rewrite how it works | prompts | settings | settings | every skill, role and the source |
 | Campaign data on your machine | ✗ | ✗ | ✗ | ✓ |
 | Specialist roles with a critic and a manager | ✗ | ✗ | rarely | ✓ |
 | How you pay | subscription | per seat | per seat | free; pay per send |
 
 Most open-source AI SDR projects are scripts, templates or skill packs. Jason is a running operation: campaign
-state, specialist roles, approvals and a supported sending provider, built and maintained by the team at Reply.io.
+state, specialist roles, approvals and a supported sending provider, all MIT, built and maintained by the team at
+Reply.io.
 
 ---
 
@@ -344,7 +436,21 @@ state, specialist roles, approvals and a supported sending provider, built and m
 
 ## Quick start
 
-**1. Paste this into Claude Code.** Your agent asks before it changes anything, installs Jason, and checks it's ready.
+**Installing Jason should be the easy part: one prompt, one program, nothing to configure by hand.** Here is what that
+means today.
+
+- **What you do:** paste one prompt into your agent and say yes to what it asks. Your agent does the rest and tells you exactly
+  what it ran and what it changed.
+- **What it installs:** one self-contained executable, under your own account. No admin rights, and no Docker, Python or Node
+  for Jason itself. It needs `git` to fetch its skills.
+- **How long it takes:** 16 seconds from nothing to `Ready` for the executable, the role skills, the browser UI and the
+  start, measured on an Apple-silicon Mac with Jason 0.24.0. Your agent reading the guide and asking you first takes
+  longer, and so does connecting your provider.
+- **How you know it worked:** `jason status --human` checks everything, and each failed check names the command that fixes it.
+- **What you don't need:** a server, a mock provider, a hosted account or an onboarding call.
+- **How you take it off:** `jason uninstall`.
+
+**1. Paste this into your agent.** It asks before it changes anything, installs Jason, and checks it's ready.
 
 ```text
 Install Jason on this machine. The instructions are
@@ -357,13 +463,12 @@ directory, the role skills), and each act the instructions mark "Ask first", off
 one as a choice. Offer me the other way too: switching this session to a mode that asks me before
 every command. Then do the steps yourself, in order from section 2, doing only what I said yes to.
 
-Jason is downloaded from its releases at <https://jasonharness.ai/releases/>, which redirect to
+Jason is downloaded from its releases at <https://get.jasonharness.ai/releases/>, which redirect to
 <https://github.com/reply-team/jason-ai/releases>; install it from there, or with the package
 section 2 names for this platform.
 
-By installing Jason you accept the Jason Runtime Licence:
-<https://github.com/reply-team/jason-ai/blob/main/LICENSE-RUNTIME.md>. If you do not accept it, do
-not install Jason.
+Jason is released under the MIT licence:
+<https://github.com/reply-team/jason-ai/blob/main/LICENSE>.
 
 At the end, tell me whether Jason can start work, what the next step is, and exactly what you ran
 and what it changed. If it can, ask me once whether I want a synthetic walk to meet Jason first or
@@ -375,7 +480,7 @@ my real work at once.
 
 ```sh
 # macOS (Apple silicon) and Linux
-curl -fsSL https://jasonharness.ai/releases/latest/download/install.sh | sh
+curl -fsSL https://get.jasonharness.ai/releases/latest/download/install.sh | sh
 
 # Homebrew
 brew install reply-team/tap/jason
@@ -383,17 +488,30 @@ brew install reply-team/tap/jason
 
 ```powershell
 # Windows
-irm https://jasonharness.ai/releases/latest/download/install.ps1 | iex
+irm https://get.jasonharness.ai/releases/latest/download/install.ps1 | iex
 ```
 
-Then `jason status --human` tells you, check by check, whether it can work and the command that fixes what can't.
+Then teach it, start it and ask whether it can work:
+
+```sh
+jason skills install --roles-only
+jason ui install
+jason runtime start
+jason status --human
+```
+
 No administrator rights needed.
 
 </details>
 
-**2. Connect your provider.** With Reply, sign in once with the Reply CLI and your agent wires up the rest.
+**2. Connect your provider.** With Reply, it's one sign-in that only you do: `reply auth login`, so your key never passes
+through the chat. Your agent does the rest: the Reply CLI (it needs Node 20 or newer), the plugin, its grant and its route.
+You open Reply's web app only to sign in, create your first API key, or connect a LinkedIn account or a mailbox by single
+sign-on. Using another provider? Its plugin goes into `~/.jason/plugins/`, and a route points your campaigns at it.
 
-**3. Tell your agent about your first campaign.** In your own words.
+**3. Tell your agent about your first campaign.** In your own words. Want to see the whole path first? Your agent offers
+a [wiring check](https://github.com/reply-team/jason-ai/blob/main/docs/golden-path.md) once: one draft campaign in your account, with your own address as the only
+contact, and nothing sent.
 
 > **Alpha.** Jason is early software and changes from release to release. Approve real sends only in a provider account
 > you keep for testing, not the one your company sells from.
@@ -405,7 +523,7 @@ No administrator rights needed.
 For the technical reader, in one screen.
 
 ```text
-   you ──── plain words ────►  your agent (Claude Code)  ◄──── skills: the GTM trade
+   you ──── plain words ────►  your agent                ◄──── skills: the GTM trade
                                    │
                                    │  CLI · local Runtime API
                                    ▼
@@ -415,11 +533,11 @@ For the technical reader, in one screen.
    └──────────────────────────────────────────┬───────────────────────────────────────────┘
                                               │  plugins: isolated, granted, digest-checked
                                               ▼
-                    Reply · your own provider · ntfy  →  email · LinkedIn · inbox
+                    Reply · your own provider · ntfy  →  email · LinkedIn · SMS · your channels · inbox
 ```
 
 - **One executable, three modes.** The runtime owns all state. The CLI, the browser UI and your agent are all clients
-  of the same local API.
+  of the same local API. The source is public under MIT.
 - **Durable by design.** Work items are claimed under a lease with one live attempt at a time. Migrations back up
   first. Updates finish or roll back, even if the machine dies halfway.
 - **Contracts, not glue.** Every provider operation is a published, machine-readable contract, checked when the work is
@@ -437,8 +555,33 @@ jason update apply              # self-update, with skills and UI; finishes or r
 ```
 
 **What leaves your machine:** what your provider plugins send to your provider, what your agent sends to its model, a
-once-a-day check for a newer release (one request carrying only the version; you can turn it off), and installs and
-updates you start yourself. Nothing else. No telemetry.
+check for a newer release five minutes after the runtime starts and then once a day (one request carrying only the
+version; you can turn it off), and installs and updates you start yourself. Nothing else. No telemetry.
+
+---
+
+## Documentation
+
+Everything below is public, and every page is written to be followed by a person or by an agent.
+
+**In numbers:** 18 guides · 24 operation contracts, each in Markdown and machine-readable JSON · 547 contract fixtures and
+265 API fixtures · a catalogue of 325 SDR operations in 21 families · 9 business skills, 7 runtime skills and 9 role
+skills · release notes on every release.
+
+| To… | Read |
+|---|---|
+| Understand why Jason exists, and who it isn't for | [Philosophy](https://github.com/reply-team/jason-ai/blob/main/docs/philosophy.md) |
+| Install it, update it or take it off | [Install guide](https://github.com/reply-team/jason-ai/blob/main/docs/INSTALL.md) · [Release and update](https://github.com/reply-team/jason-ai/blob/main/docs/release-and-update.md) |
+| Walk the whole path once, from empty to one approved operation | [The wiring check](https://github.com/reply-team/jason-ai/blob/main/docs/golden-path.md) |
+| See how the pieces fit | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Work execution](https://github.com/reply-team/jason-ai/blob/main/docs/work-execution.md) · [Campaign manager](https://github.com/reply-team/jason-ai/blob/main/docs/campaign-manager.md) · [Projects](https://github.com/reply-team/jason-ai/blob/main/docs/projects.md) |
+| Connect a provider or add a channel | [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) · [Contracts](https://github.com/reply-team/jason-ai/blob/main/docs/contracts/README.md) · [Routing](https://github.com/reply-team/jason-ai/blob/main/docs/routing.md) · [Reply plugin](https://github.com/reply-team/jason-ai/blob/main/plugins/reply/README.md) |
+| Choose which agent runs the work | [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
+| Build on the runtime | [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) · [Events](https://github.com/reply-team/jason-ai/blob/main/docs/events.md) · [Inbound sync](https://github.com/reply-team/jason-ai/blob/main/docs/inbound-sync.md) · [Reports](https://github.com/reply-team/jason-ai/blob/main/docs/reports.md) |
+| Get told when something waits, and decide it | [Notifications](https://github.com/reply-team/jason-ai/blob/main/docs/notifications.md) · [Browser UI](https://github.com/reply-team/jason-ai/blob/main/docs/ui.md) |
+| Read or change how the work is done | [Skills](https://github.com/reply-team/jason-ai/blob/main/skills/README.md) · [Business skills](https://github.com/reply-team/jason-ai/blob/main/skills/business/README.md) · [Runtime skills and roles](https://github.com/reply-team/jason-ai/blob/main/skills/runtime/README.md) |
+| Know what leaves your machine, and what stays your job | [Responsible use](https://github.com/reply-team/jason-ai/blob/main/docs/responsible-use.md) · [Security policy](https://github.com/reply-team/jason-ai/blob/main/SECURITY.md) |
+| Fix something | [When something is wrong](https://github.com/reply-team/jason-ai/blob/main/README.md#when-something-is-wrong) · [Troubleshooting skill](https://github.com/reply-team/jason-ai/blob/main/skills/runtime/troubleshooting-jason/SKILL.md) · [Open an issue](https://github.com/reply-team/jason-ai/issues/new?template=problem.yml) |
+| Follow what changed, or contribute | [Release notes](https://github.com/reply-team/jason-ai/blob/main/RELEASE-NOTES.md) · [Contributing](https://github.com/reply-team/jason-ai/blob/main/CONTRIBUTING.md) · [Development](https://github.com/reply-team/jason-ai/blob/main/DEVELOPMENT.md) |
 
 ---
 
@@ -454,29 +597,51 @@ Jason pauses. When you're back, it picks up where it left off and checks for new
 is sent twice. It can start on its own when you log in.
 
 **Which AI does it work with?**
-Claude Code today, for both your session and the background roles. The business skills follow the open Agent Skills
-format, so other compatible agents can read them.
+Claude Code runs your session and the nine background roles. Codex and any other agent with a shell can run your session
+through Jason's CLI and skills, on their own subscription; the background roles run in Claude Code only in this release. The
+skills follow the open Agent Skills format.
 
 **Do I need Reply?**
-You need a provider for anything to reach a person. Reply's plugin ships ready, with data, mailboxes, email, LinkedIn
+No. You need a provider for anything to reach a person. Reply's plugin ships ready, with data, mailboxes, email, LinkedIn
 and the inbox in one account. Any other provider connects through a plugin, and data tools work through your agent.
 Without a provider, Jason can still plan and keep records; it just sends nothing.
 
-**Do I need a Claude API key?**
-No. Jason runs through Claude Code under your own login, so a Claude Pro, Max or Ultra plan covers the thinking,
-within its usage limits.
+**Can I send from Gmail, Microsoft 365 or SMTP?**
+Yes. Connect them to Reply and they work with no code. To send through them without Reply, you or your agent writes a
+small plugin against the published contracts; no ready-made one ships today.
+
+**Can I add my own channel?**
+Yes, any of them. Channels are plugins, and channel names are open. Ask your agent to write the plugin from the
+[author's guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md). Your agent can also use any tool it's connected to and record what it did in
+Jason.
+
+**Does Jason find leads?**
+Yes, through Reply's Live Data API or through your own search tools. Jason has no contact database of its own.
+
+**Does Jason warm up mailboxes?**
+Through your provider: Reply's warm-up, or another such as TrulyInbox, Lemwarm or Warmy. Jason itself brings the
+deliverability skills, the Deliverability role and the stop rules.
+
+**How do I connect my CRM or another tool?**
+Connect it to Claude Code, or your agent, as an MCP server, CLI or API, and it's connected. HubSpot, Salesforce and
+Pipedrive also sync two ways through Reply.
+
+**Do I need an API key for the model?**
+No. Jason runs through your agent under your own login, so your subscription covers the thinking, within its usage
+limits.
 
 **I'm already a Reply customer. What changes?**
 Nothing you have to move. Jason works on the Reply account you already have. Keep your sequences running and try Jason
 on one new group of prospects.
 
 **Is it open source?**
-The skills, plugins, contracts, docs and UI are MIT and public, so you can read exactly how Jason is told to work. The
-runtime is a free executable whose source isn't published.
+Yes. Since 0.24.0 the whole product is MIT, the runtime included, and its
+[source and releases](https://github.com/reply-team/jason-ai) are public.
 
 **Something's wrong. What do I do?**
-Ask your agent "what's wrong with Jason?". It runs the self-check and the fix it names. Still stuck? Write to
-support@reply.io.
+Ask your agent "what's wrong with Jason?". It runs the self-check and the fix it names. Still stuck? `jason doctor`
+writes a file made to be shared and prints the address of an
+[issue form](https://github.com/reply-team/jason-ai/issues/new?template=problem.yml), or write to support@reply.io.
 
 ---
 
@@ -507,9 +672,9 @@ offer, bad data or a burnt domain, and it doesn't pretend to.
 
 ## License
 
-The skills, plugins, contracts, docs, install scripts and UI in this repository are **MIT**. The runtime is a free
-executable under the [Jason Runtime Licence](https://github.com/reply-team/jason-ai/blob/main/LICENSE-RUNTIME.md): use
-it for your own business on as many of your machines as you like. By installing Jason you accept it.
+**MIT.** Everything in [reply-team/jason-ai](https://github.com/reply-team/jason-ai) is under the
+[MIT licence](https://github.com/reply-team/jason-ai/blob/main/LICENSE) from 0.24.0, the runtime included, along with the skills, plugins, contracts, docs, install
+scripts and UI. Archives of earlier releases carry the licence they were published with.
 
 "Jason", "Jason AI", "Reply" and "Reply.io" are trademarks of ReplyApp Inc.
 
