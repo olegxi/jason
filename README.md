@@ -174,7 +174,7 @@ Day to day, it goes like this:
 
 No forms, no sequence builder. You say what you want the way you'd brief a great sales hire:
 
-- *"Twenty CFOs at logistics companies in Poland. LinkedIn first, email if they accept."*
+- *"Twenty CFOs at logistics companies in Chicago. LinkedIn first, email if they accept."*
 - *"Re-engage everyone who went quiet last quarter, with a new angle."*
 - *"Work our closed-lost deals from last year. Skip anyone who left over price."*
 - *"Draft answers to today's replies. I'll approve them after lunch."*
@@ -190,10 +190,10 @@ Instead of one AI doing everything, the work is split the way a good sales team 
 | Role | What they do | For example |
 |---|---|---|
 | **Manager** | Watches the whole campaign, on events and on a schedule | "Nothing has moved in a week. Pause, or change the angle?" |
-| **Planner** | Plans the campaign and each person's line with you | "Ten SaaS companies in Germany. Email first, then LinkedIn." |
+| **Planner** | Plans the campaign and each person's line with you | "Ten SaaS companies in Austin. Email first, then LinkedIn." |
 | **Researcher** | Finds the right people and the facts about them | A new office, a funding round, a fresh job title |
 | **Copywriter** | Writes the core message and the follow-ups | The pitch, in your voice |
-| **Personalizer** | Makes each message about the person reading it | "Saw you just opened in Berlin…" |
+| **Personalizer** | Makes each message about the person reading it | "Saw you just opened in Denver…" |
 | **Critic** | Reviews every draft before you see it | Sends back a claim you can't prove |
 | **Responder** | Reads replies and drafts the answer | Tells "not now" from "interested" from "talk to my colleague" |
 | **Analyst** | Tells you what's working | "LinkedIn gets twice the replies of email for this group." |
