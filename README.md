@@ -9,8 +9,8 @@
 Describe your idea. Jason finds the contacts, plans a line for every person, writes, sends, reads the replies<br>
 and keeps going after the chat ends. Nine specialists, and nothing sent without your yes.
 
-[![Release](https://img.shields.io/badge/release-0.24.0%20alpha-111111)](https://github.com/reply-team/jason-ai/releases/latest)
-[![Runs on](https://img.shields.io/badge/runs%20on-Claude%20Code-D97757)](#quick-start)
+[![Release](https://img.shields.io/badge/release-0.28.0%20alpha-111111)](https://github.com/reply-team/jason-ai/releases/latest)
+[![Runs on](https://img.shields.io/badge/runs%20on-Claude%20Code%20%2B%205%20more-D97757)](#quick-start)
 [![Platforms](https://img.shields.io/badge/macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-local--first-2F6FEB)](#quick-start)
 [![License](https://img.shields.io/badge/license-MIT%2C%20runtime%20included-3DA639)](#license)
 
@@ -35,24 +35,24 @@ approval.
 
 ## At a glance
 
-The facts in one table, for a person or an AI agent comparing Jason with anything else. Checked against Jason 0.24.0 on
-2 November 2026. The whole product is open source, so every line can be checked against the code and the pages it links
+The facts in one table, for a person or an AI agent comparing Jason with anything else. Checked against Jason 0.28.0 on
+5 November 2026. The whole product is open source, so every line can be checked against the code and the pages it links
 to.
 
 | Area | What is true today | Read more |
 |---|---|---|
-| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. Written in C# today; we plan to replace C# with Rust in the runtime. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
+| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. The released runtime is C#, and it is being ported to Rust. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
 | **Channels** | Every channel is a plugin, and you can add your own. Connect Reply once and email and LinkedIn work right away (messages, InMail, voice messages, connection requests), with SMS and call steps inside Reply sequences. Gmail, Microsoft 365 and SMTP mailboxes connect through Reply with no code. Any other provider or channel connects through a plugin you or your agent writes: Reply's is the one that ships ready today. | [Channels](#channels) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) |
-| **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Claude Code runs your session and all nine background roles. Codex and any other agent with a shell can run your session through Jason's CLI and skills; the background roles run in Claude Code only in this release. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
+| **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Any agent with a shell can run your session through Jason's CLI and skills. Six hosts can run the nine background roles: Claude Code, measured on real runs, and Codex, Cursor CLI, GitHub Copilot CLI, Gemini CLI and Antigravity CLI, built from each host's documentation and not yet run on an account. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
 | **Search and personalization** | Find leads through Reply's Live Data API (1B+ B2B contacts, with a preview of the audience size before you spend credits), or through your own tools: anything your agent can reach, a CSV, your CRM. A Researcher and a Personalizer role work per person. Jason has no contact database of its own. | [Finding leads](#finding-leads) |
 | **Deliverability and warm-up** | Deliverability modules ship with Jason: sending and LinkedIn guardrail skills (authentication, warm-up, pacing, bounces, recovery) and a Deliverability role that reads bounces, opt-outs and failures and can pause a campaign at once. Warm-up itself runs in the provider you connect: Reply, or TrulyInbox, Lemwarm, Warmy and others. Jason has no warm-up engine of its own. | [Deliverability](#deliverability-and-warm-up) |
-| **Human in the loop** | Every operation that reaches a real person waits for a person's approval, in the chat or the browser UI. It is written into the operation's contract, not left to a setting, and there is no autopilot mode. Enrolment into a provider's sequence is approved once per person; the provider then sends that sequence's steps. | [Nothing reaches a person without you](#nothing-reaches-a-person-without-you) |
+| **Human in the loop** | Every operation that reaches a real person waits for a person's approval, in the chat or the browser UI. It is written into the operation's contract, not left to a setting, and there is no autopilot switch. Two things to know: enrolment into a provider's sequence is approved once per person, and the provider then sends that sequence's steps; and a named person can pre-approve drafted replies to one category of reply in one campaign, with an optional expiry and ceiling. Every such release is logged under that person's name. | [Nothing reaches a person without you](#nothing-reaches-a-person-without-you) |
 | **Integrations and CRM** | Any integration you can connect to Claude Code works: MCP server, CLI or API. Your agent connects it and uses it, with no Jason connector needed. HubSpot, Salesforce and Pipedrive sync two ways through Reply, or connect through the CRM's own MCP. Phone pushes go through ntfy. | [Any other integration](#any-other-integration) |
 | **Installation** | One prompt pasted into your agent, or one line in a shell. One self-contained executable under your own account, with no admin rights and no Docker, Python or Node for Jason itself. Measured on a Mac: 16 seconds from nothing to `Ready`. | [Quick start](#quick-start) · [Install guide](https://github.com/reply-team/jason-ai/blob/main/docs/INSTALL.md) |
-| **Documentation** | 18 guides, 24 operation contracts in Markdown and JSON with 547 test fixtures, a catalogue of 325 SDR operations, a page per skill, release notes, a self-check and a troubleshooting skill. | [Documentation](#documentation) |
+| **Documentation** | 18 guides, 24 operation contracts in Markdown and JSON with 564 test fixtures, a catalogue of 325 SDR operations, a page per skill, release notes, a self-check and a troubleshooting skill. | [Documentation](#documentation) |
 | **Extensibility** | Skills and roles are plain Markdown you can edit. Plugins are small JavaScript packages against published contracts, with no private path: Reply's uses the same door as yours. You can register new roles and build on the Runtime API. | [Make it yours](#make-it-yours) |
-| **Maturity** | Alpha, and young. The runtime's source and the public history opened with 0.24.0 on 1 November 2026, so the community is still small. The repository carries about 700 .NET test files and a UI test suite, with CI on macOS, Linux and Windows. 24 of the 25 skills are still marked `draft`, meaning no agent host has yet been recorded reading that exact text. | [Releases](https://github.com/reply-team/jason-ai/releases) · [Skills](https://github.com/reply-team/jason-ai/blob/main/skills/README.md) |
-| **Security and compliance** | No telemetry. Campaign data stays on your machine. Plugins run in their own short-lived process, only with the programs and hosts you granted, and are digest-checked. The provider's CLI holds the credential, so Jason never sees it. The do-not-contact list never relaxes. Staying within the law where you send stays your job. | [What leaves your machine](#under-the-hood) · [Responsible use](https://github.com/reply-team/jason-ai/blob/main/docs/responsible-use.md) |
+| **Maturity** | Alpha, and young. The runtime's source and the public history opened with 0.24.0 on 1 November 2026, so the community is still small. The repository carries about 900 C# test files and a UI test suite, with CI on macOS, Linux and Windows. 14 of the 25 skills are `verified`, meaning an agent host was recorded reading that exact text; the other 11 are still `draft`. | [Releases](https://github.com/reply-team/jason-ai/releases) · [Skills](https://github.com/reply-team/jason-ai/blob/main/skills/README.md) |
+| **Security and compliance** | No telemetry. Campaign data stays on your machine. Install scripts verify the download's SHA-256 before unpacking. Plugins run in their own short-lived process, only with the programs and hosts you granted, and are digest-checked. The provider's CLI holds the credential, so Jason never sees it. The do-not-contact list never relaxes. Staying within the law where you send stays your job. | [What leaves your machine](#under-the-hood) · [Responsible use](https://github.com/reply-team/jason-ai/blob/main/docs/responsible-use.md) |
 
 ---
 
@@ -90,13 +90,22 @@ every time a role thinks twice.
 
 | Your agent | Your session: plan, approve, drive Jason | The nine background roles | What you pay |
 |---|---|---|---|
-| **Claude Code** | ✅ Yes, and the one we verify against | ✅ Yes | A Claude Pro, Max or Ultra plan. No API key |
-| **Codex** | ✅ Through Jason's CLI and skills | Not in this release | Your Codex plan. No API key |
+| **Claude Code** | ✅ Yes, and the one we verify against | ✅ Yes, measured on real runs | A Claude Pro, Max or Ultra plan. No API key |
+| **Codex** | ✅ Through Jason's CLI and skills | ✅ Built in, not yet run on an account | Your Codex plan. No API key |
+| **Cursor CLI · GitHub Copilot CLI · Gemini CLI · Antigravity CLI** | ✅ Through Jason's CLI and skills | ✅ Built in, not yet run on an account | That agent's own plan |
 | **Any other agent with a shell** | ✅ Through Jason's CLI and skills | Not in this release | That agent's own plan |
 
 Jason is a plain command-line program and its skills are plain Markdown, so any agent that can run a command can operate
-it. The background roles need a launcher for each host, and Claude Code is the host this release can launch: without it
-the roles wait, and your own session keeps working.
+it. The background roles need a launcher for each host, and a short **execution profile** names which host runs the work:
+
+```sh
+jason profile create local-codex --host codex --program codex
+```
+
+You sign in to the host yourself, and the profile has nowhere to put a secret. Different work can run on different
+profiles. If no profile can run a piece of AI work, it waits and everything else keeps running. The
+[host matrix](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md#12-the-hosts) says what was
+measured on each host and what wasn't.
 
 **Why it matters**
 
@@ -118,15 +127,17 @@ the roles wait, and your own session keeps working.
 - **Your AI becomes your go-to-market team.** No new platform to learn, no onboarding calls. You talk to your agent in plain words,
   and it runs your outbound.
 - **A memory that outlives the chat.** Every campaign, person, plan, decision and reply is kept on your machine. Close
-  the laptop, restart, crash: Jason picks up exactly where it was.
+  the laptop, restart, crash: Jason picks up exactly where it was. Each role also keeps its own notes for its later runs,
+  for your business, a project and a campaign. Where a note and the campaign record disagree, the record wins.
 - **One plan per person, not one sequence for everyone.** Each prospect gets their own line of contact, and it changes
   when they reply, when a group goes quiet, or when a mailbox starts landing in spam.
 - **Nine specialists instead of one generalist.** A planner, researcher, copywriter, personalizer, critic, responder,
   analyst, deliverability specialist and a manager who watches the whole campaign.
-- **You keep the send button.** Nothing reaches a real person until you approve that exact message, in the chat or in
-  the browser.
-- **Never a double-send.** If a send is interrupted, Jason marks it unclear and hands it back to you. It never retries
-  on its own.
+- **You keep the send button.** Nothing reaches a real person until you say yes, in the chat or in the browser. You can
+  also say yes in advance, for one kind of reply in one campaign, and take it back at any time.
+- **Never a double-send.** If a send is interrupted and the answer is lost, Jason doesn't guess. A reply comes back to you.
+  A new message is repeated only under its own key, where the provider keeps those keys and answers with the first result
+  instead of sending again. Otherwise it comes back to you too.
 - **Every channel, and room for your own.** Connect Reply once and email and LinkedIn work right away, with SMS and call
   steps in the same sequences, and the inbox and warm-up handled. Or add any provider or channel of your own through a
   plugin.
@@ -199,8 +210,11 @@ Instead of one AI doing everything, the work is split the way a good sales team 
 | **Analyst** | Tells you what's working | "LinkedIn gets twice the replies of email for this group." |
 | **Deliverability** | Keeps your mail out of spam | Slows a mailbox that's starting to slip |
 
-The roles run in the background in Claude Code, on your plan. When one can't safely decide something, it asks you, and the
-work waits for your answer in whichever session you give it.
+The roles run in the background on the host you chose, on your plan. When one can't safely decide something, it asks you,
+and the work waits for your answer in whichever session you give it.
+
+The Manager wakes on what happens: a failure, a rejected approval, a reply, or something you reported. If nothing
+happens, it looks in anyway, as often as you set for that campaign.
 
 ---
 
@@ -211,6 +225,9 @@ Jason does as much as it can on its own, and nothing that should be yours.
 - **Approvals are the rule, not a setting.** Every operation that reaches a real person is parked with a record of
   exactly what would be done, until you decide. Approve in the chat or in the browser UI, where you see the person,
   the account it goes from and the full message.
+- **A yes in advance, only if you give one.** You can pre-approve drafted replies to one category of reply in one
+  campaign, such as `interested`, with an expiry and a ceiling if you want them. Only a named person can set it, a role
+  never can, and every message it lets go is logged under that person's name.
 - **A do-not-contact list that never relaxes.** Work that would reach someone on it fails before it starts.
 - **Blocks stop the line.** If your provider refuses an account (billing, a disconnected channel), Jason holds the work
   until you clear it.
@@ -402,7 +419,7 @@ mostly sold by demo, on annual contracts.
 | Keeps working after the chat closes | ✗ | ✓ | ✓ | ✓ |
 | A plan per person that changes when they reply | ✗ | ✗ | partly | ✓ |
 | Thinks with **your** AI | ✓ | ✗ | ✗ | ✓ |
-| Every message waits for your yes | you send by hand | ✗ | optional | ✓ |
+| Every message waits for your yes | you send by hand | ✗ | optional | ✓, or a yes in advance you set for one kind of reply |
 | You can rewrite how it works | prompts | settings | settings | every skill, role and the source |
 | Campaign data on your machine | ✗ | ✗ | ✗ | ✓ |
 | Specialist roles with a critic and a manager | ✗ | ✗ | rarely | ✓ |
@@ -440,14 +457,16 @@ Reply.io.
 means today.
 
 - **What you do:** paste one prompt into your agent. It guides you through the rest and asks only when it needs you.
-- **What it installs:** one self-contained executable, under your own account. No admin rights, and no Docker, Python or Node
-  for Jason itself. It needs `git` to fetch its skills.
+- **What it installs:** one self-contained executable, under your own account. The install script checks the download's
+  SHA-256 before unpacking it. No admin rights, and no Docker, Python or Node for Jason itself. It needs `git` to fetch its
+  skills.
 - **How long it takes:** 16 seconds from nothing to `Ready` for the executable, the role skills, the browser UI and the
   start, measured on an Apple-silicon Mac with Jason 0.24.0. Your agent working through the guide takes longer, and so
   does connecting your provider.
 - **How you know it worked:** `jason status --human` checks everything, and each failed check names the command that fixes it.
 - **What you don't need:** a server, a mock provider, a hosted account or an onboarding call.
-- **How you take it off:** `jason uninstall`.
+- **How you take it off:** `jason uninstall`. It removes only the skills it recorded installing, so anything you copied in
+  by hand stays. Your data stays too unless you add `--purge-data`, and your `~/Jason` folder is never touched.
 
 **1. Paste this into your agent.** It installs Jason, checks it's ready and guides you to your first campaign.
 
@@ -458,6 +477,9 @@ Install Jason on this machine by following
 Do the setup yourself and guide me step by step. Ask me only when you need my input.
 When it's ready, tell me what you changed and help me start my first campaign.
 ```
+
+If your agent runs in auto mode, it may ask before the download, or refuse where nothing can ask you. Both are right: say
+yes, or run the line below yourself.
 
 <details>
 <summary>Or install it yourself</summary>
@@ -522,21 +544,29 @@ For the technical reader, in one screen.
 
 - **One executable, three modes.** The runtime owns all state. The CLI, the browser UI and your agent are all clients
   of the same local API. The source is public under MIT.
-- **C# today, Rust planned.** The runtime is written in C# on .NET and ships as a self-contained build, so you don't
-  need .NET installed. We plan to replace C# with Rust. The plan covers the runtime only.
+- **C# today, moving to Rust.** The released runtime is C# on .NET, and it ships as a self-contained build, so you don't
+  need .NET installed. The runtime is being ported to Rust in the same repository. Until the port is done, the C# runtime
+  is the one released.
 - **Durable by design.** Work items are claimed under a lease with one live attempt at a time. Migrations back up
-  first. Updates finish or roll back, even if the machine dies halfway.
+  first. An update writes each step to a ledger before doing it, so one that dies halfway is finished or put back on the next
+  run. Send the same create twice with one idempotency key, and you get the first result back, not a second copy.
 - **Contracts, not glue.** Every provider operation is a published, machine-readable contract, checked when the work is
   created and again when it runs.
+- **Nothing is routed until you route it.** A fresh runtime sends work nowhere. A route says which plugin does an operation
+  for a campaign and from which account, and each attempt records the package, its digest and the account it ran under.
 - **Plugins can't decide.** They run in their own short-lived process, only with the programs and hosts you granted,
   and never see work that still needs your approval.
-- **It fixes itself through your agent.** Ask "is Jason ready?" and your agent runs the self-check and the fix it names.
+- **It fixes itself through your agent.** Ask "is Jason ready?" and your agent runs the self-check: six required checks,
+  from the runtime answering to the role skills being in place, each naming its fix.
+- **A support file you can read first.** `jason doctor --dry-run` lists what the file would hold. It leaves out prompts,
+  request bodies, the database and your `~/Jason` folder, replaces your home directory and account names with marks, and
+  never sends itself anywhere.
 
 ```sh
 jason status --human            # read-only: can this installation work? each check names its fix
 jason ui open                   # the browser UI: attention · campaigns · people · performance
 jason approval list --human     # read-only: everything that waits for your yes
-jason approval approve <id> ... # the only way a message reaches a person, under your name
+jason approval approve <id> ... # your yes for one item, under your name
 jason update apply              # self-update, with skills and UI; finishes or rolls back
 ```
 
@@ -550,8 +580,8 @@ version; you can turn it off), and installs and updates you start yourself. Noth
 
 Everything below is public, and every page is written to be followed by a person or by an agent.
 
-**In numbers:** 18 guides · 24 operation contracts, each in Markdown and machine-readable JSON · 547 contract fixtures and
-265 API fixtures · a catalogue of 325 SDR operations in 21 families · 9 business skills, 7 runtime skills and 9 role
+**In numbers:** 18 guides · 24 operation contracts, each in Markdown and machine-readable JSON · 564 contract fixtures and
+276 API fixtures · a catalogue of 325 SDR operations in 21 families · 9 business skills, 7 runtime skills and 9 role
 skills · release notes on every release.
 
 | To… | Read |
@@ -576,16 +606,18 @@ skills · release notes on every release.
 **Does it ever send on its own?**
 No. Every message to a real person waits for your approval. One nuance, said plainly: if a campaign enrols someone
 into your provider's own sequence, you approve that enrolment once for that person, and the provider then sends the
-sequence's steps.
+sequence's steps. And if you choose to, you can pre-approve drafted replies to one category of reply in one campaign.
+No role can turn that on.
 
 **What if my laptop is closed?**
 Jason pauses. When you're back, it picks up where it left off and checks for new replies. Nothing is lost, and nothing
-is sent twice. It can start on its own when you log in.
+is sent twice. `jason runtime autostart enable` starts it when you log in, with no admin rights.
 
 **Which AI does it work with?**
-Claude Code runs your session and the nine background roles. Codex and any other agent with a shell can run your session
-through Jason's CLI and skills, on their own subscription; the background roles run in Claude Code only in this release. The
-skills follow the open Agent Skills format.
+Any agent with a shell can run your session through Jason's CLI and skills, on its own subscription. The nine background
+roles run on Claude Code, measured on real runs, or on Codex, Cursor CLI, GitHub Copilot CLI, Gemini CLI or Antigravity
+CLI, which are built from each host's documentation and not yet run on an account. The skills follow the open Agent Skills
+format.
 
 **Do I need Reply?**
 No. You need a provider for anything to reach a person. Reply's plugin ships ready, with data, mailboxes, email, LinkedIn
@@ -626,7 +658,7 @@ Yes. Since 0.24.0 the whole product is MIT, the runtime included, and its
 
 **Something's wrong. What do I do?**
 Ask your agent "what's wrong with Jason?". It runs the self-check and the fix it names. Still stuck? `jason doctor`
-writes a file made to be shared and prints the address of an
+writes a file made to be shared, which you can read first and which never sends itself, and prints the address of an
 [issue form](https://github.com/reply-team/jason-ai/issues/new?template=problem.yml), or write to support@reply.io.
 
 ---
@@ -639,10 +671,10 @@ remembered when they say no. A tool that only sends messages doesn't hold that l
 **Your AI thinks. Jason remembers. Your provider delivers.** Each part does one job, and none of them pretends to be the
 others.
 
-**Autonomous doesn't mean unsupervised.** Every operation that reaches a real person waits for a person. That's
-written into the operation's contract, not left to a setting someone might switch off.
+**Autonomous doesn't mean unsupervised.** Every operation that reaches a real person waits for a person's word, given on
+the item or, for one kind of reply, in advance. That's written into the operation's contract, and no role can give it.
 
-**Honest over smooth.** An interrupted send is handed back, never quietly resent. A role that isn't sure asks. The
+**Honest over smooth.** An interrupted send is never guessed at: it repeats only where the provider can't send it twice, and otherwise comes back to you. A role that isn't sure asks. The
 history is append-only, so what happened stays what happened.
 
 **Vendor-neutral by position, not by accident.** No provider is built into the runtime. Reply's plugin goes through the
