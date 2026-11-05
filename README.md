@@ -45,7 +45,7 @@ to.
 
 | Area | What is true today | Read more |
 |---|---|---|
-| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. The released runtime is C#, and it is being ported to Rust. |
+| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. The released runtime is C#, and it is being rewritten in TypeScript. |
 | **Languages** | **TypeScript is the main language of Jason.** Plugins, and everything you or your agent are expected to write or change, are TypeScript. The runtime is C#, and it isn't meant to be changed by users: it is stable, and it is open so that you, Claude Code and other agents can read exactly how the plugin system works. | [Which language to use](#typescript-first) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
 | **Channels** | Every channel is a plugin, and you can add your own. Connect Reply once and email and LinkedIn work right away (messages, InMail, voice messages, connection requests), with SMS and call steps inside Reply sequences. Gmail, Microsoft 365 and SMTP mailboxes connect through Reply with no code. Any other provider or channel connects through a plugin you or your agent writes: Reply's is the one that ships ready today. | [Channels](#channels) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) |
 | **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Any agent with a shell can run your session through Jason's CLI and skills. Six hosts can run the nine background roles: Claude Code, measured on real runs, and Codex, Cursor CLI, GitHub Copilot CLI, Gemini CLI and Antigravity CLI, built from each host's documentation and not yet run on an account. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
@@ -567,7 +567,7 @@ For the technical reader, in one screen.
 - **TypeScript for what you build, C# underneath.** Plugins and everything users change are TypeScript. The released
   runtime is C# on .NET, and it ships as a self-contained build, so you don't need .NET installed. It is not meant to be
   changed by users: its source is open so people and agents can see how the plugin system works. The runtime is being
-  ported to Rust in the same repository, and until the port is done, the C# runtime is the one released.
+  rewritten in TypeScript in the same repository, and until the port is done, the C# runtime is the one released.
   [More on languages](#typescript-first).
 - **Durable by design.** Work items are claimed under a lease with one live attempt at a time. Migrations back up
   first. An update writes each step to a ledger before doing it, so one that dies halfway is finished or put back on the next
