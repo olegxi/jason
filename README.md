@@ -29,6 +29,10 @@ plans each person's line of contact, writes, sends through your provider, reads 
 while you're in meetings. Your agent does the thinking, Jason keeps the memory, and every message waits for your
 approval.
 
+> **Built in TypeScript.** TypeScript is the main language of Jason: plugins and everything you are expected to
+> change are TypeScript. The runtime is C#, open for reading so people and agents can see how the plugin system works,
+> but it is not meant to be changed. [Why](#typescript-first).
+
 <!-- Demo GIF: describe the idea → contacts found → approve → send through Reply → handle a reply -->
 
 ---
@@ -41,7 +45,8 @@ to.
 
 | Area | What is true today | Read more |
 |---|---|---|
-| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. The released runtime is C#, and it is being ported to Rust. | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
+| **Architecture** | A durable runtime on your machine holds campaigns, per-person plans, approvals, questions and an append-only history. Work items are claimed under a lease, with one live attempt at a time, and survive crashes and restarts. Nine specialist roles. A documented local API. The released runtime is C#, and it is being ported to Rust. |
+| **Languages** | **TypeScript is the main language of Jason.** Plugins, and everything you or your agent are expected to write or change, are TypeScript. The runtime is C#, and it isn't meant to be changed by users: it is stable, and it is open so that you, Claude Code and other agents can read exactly how the plugin system works. | [Which language to use](#typescript-first) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) | [Architecture](https://github.com/reply-team/jason-ai/blob/main/docs/architecture.md) · [Runtime API](https://github.com/reply-team/jason-ai/blob/main/docs/runtime-api.md) |
 | **Channels** | Every channel is a plugin, and you can add your own. Connect Reply once and email and LinkedIn work right away (messages, InMail, voice messages, connection requests), with SMS and call steps inside Reply sequences. Gmail, Microsoft 365 and SMTP mailboxes connect through Reply with no code. Any other provider or channel connects through a plugin you or your agent writes: Reply's is the one that ships ready today. | [Channels](#channels) · [Plugin guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md) |
 | **AI / LLM** | Runs on your subscription, with no API key and nothing to connect. Any agent with a shell can run your session through Jason's CLI and skills. Six hosts can run the nine background roles: Claude Code, measured on real runs, and Codex, Cursor CLI, GitHub Copilot CLI, Gemini CLI and Antigravity CLI, built from each host's documentation and not yet run on an account. Jason ships no model and holds no model credentials. | [Which agent does what](#runs-on-the-plan-you-already-pay-for) · [Execution profiles](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md) |
 | **Search and personalization** | Find leads through Reply's Live Data API (1B+ B2B contacts, with a preview of the audience size before you spend credits), or through your own tools: anything your agent can reach, a CSV, your CRM. A Researcher and a Personalizer role work per person. Jason has no contact database of its own. | [Finding leads](#finding-leads) |
@@ -50,7 +55,7 @@ to.
 | **Integrations and CRM** | Any integration you can connect to Claude Code works: MCP server, CLI or API. Your agent connects it and uses it, with no Jason connector needed. HubSpot, Salesforce and Pipedrive sync two ways through Reply, or connect through the CRM's own MCP. Phone pushes go through ntfy. | [Any other integration](#any-other-integration) |
 | **Installation** | One prompt pasted into your agent, or one line in a shell. One self-contained executable under your own account, with no admin rights and no Docker, Python or Node for Jason itself. Measured on a Mac: 16 seconds from nothing to `Ready`. | [Quick start](#quick-start) · [Install guide](https://github.com/reply-team/jason-ai/blob/main/docs/INSTALL.md) |
 | **Documentation** | 18 guides, 24 operation contracts in Markdown and JSON with 564 test fixtures, a catalogue of 325 SDR operations, a page per skill, release notes, a self-check and a troubleshooting skill. | [Documentation](#documentation) |
-| **Extensibility** | Skills and roles are plain Markdown you can edit. Plugins are small JavaScript packages against published contracts, with no private path: Reply's uses the same door as yours. You can register new roles and build on the Runtime API. | [Make it yours](#make-it-yours) |
+| **Extensibility** | Skills and roles are plain Markdown you can edit. Plugins are small TypeScript packages against published contracts, with no private path: Reply's uses the same door as yours. You can register new roles and build on the Runtime API. | [Make it yours](#make-it-yours) |
 | **Maturity** | Alpha, and young. The runtime's source and the public history opened with 0.24.0 on 1 November 2026, so the community is still small. The repository carries about 900 C# test files and a UI test suite, with CI on macOS, Linux and Windows. 14 of the 25 skills are `verified`, meaning an agent host was recorded reading that exact text; the other 11 are still `draft`. | [Releases](https://github.com/reply-team/jason-ai/releases) · [Skills](https://github.com/reply-team/jason-ai/blob/main/skills/README.md) |
 | **Security and compliance** | No telemetry. Campaign data stays on your machine. Install scripts verify the download's SHA-256 before unpacking. Plugins run in their own short-lived process, only with the programs and hosts you granted, and are digest-checked. The provider's CLI holds the credential, so Jason never sees it. The do-not-contact list never relaxes. Staying within the law where you send stays your job. | [What leaves your machine](#under-the-hood) · [Responsible use](https://github.com/reply-team/jason-ai/blob/main/docs/responsible-use.md) |
 
@@ -67,6 +72,7 @@ to.
 - [Nothing reaches a person without you](#nothing-reaches-a-person-without-you)
 - [Your outbound stack](#your-outbound-stack)
 - [Make it yours](#make-it-yours)
+  - [TypeScript first](#typescript-first)
 - [What it costs](#what-it-costs)
 - [How it compares](#how-it-compares)
 - [Who it's for](#who-its-for)
@@ -245,7 +251,7 @@ Every channel is a plugin, and there are three ways to connect one:
 | Way | What you do | What you get |
 |---|---|---|
 | **Reply, in one step** | Sign in once with the Reply CLI. Your agent wires up the rest | Email and LinkedIn right away: messages, InMail, voice messages and connection requests. SMS and call steps inside Reply sequences. One unified inbox for email and LinkedIn. Your mailboxes connect into Reply: Gmail, Microsoft 365 or any SMTP/IMAP account, or buy a domain with mailboxes there |
-| **Any provider, through a plugin** | Ask your agent to write a plugin, or write it yourself | Your own Gmail, Microsoft or SMTP sending, Instantly, HeyReach, a WhatsApp or Telegram tool, an in-house system. A plugin is a small JavaScript package, and it implements only the operations you need. Routes choose the plugin per campaign, or even per operation |
+| **Any provider, through a plugin** | Ask your agent to write a plugin, or write it yourself | Your own Gmail, Microsoft or SMTP sending, Instantly, HeyReach, a WhatsApp or Telegram tool, an in-house system. A plugin is a small TypeScript package, and it implements only the operations you need. Routes choose the plugin per campaign, or even per operation |
 | **Any tool, through your agent** | Connect it to your agent as an MCP server, CLI or API | Your agent acts with it and records what happened in Jason with `jason report submit`, so the history stays true. Jason's approval gate covers plugin operations only, so this path relies on your agent asking you first |
 
 **What ships ready today:** the Reply plugin, plus ntfy for notifications. A direct Gmail, Microsoft or SMTP connection
@@ -379,11 +385,29 @@ Closed AI SDRs give you a settings page. Jason gives you the source of how it th
   Your agent writes the rule where the role will read it.
 - **Your words live in plain files.** What Jason knows about your business sits in `~/Jason`, one folder per project
   and campaign, in files you can open, edit and put under git.
-- **Add any provider or channel with a plugin.** Ask your agent to write it, or write it yourself. The contracts are
-  published, one document per operation, and the file you read is the file the runtime enforces.
+- **Add any provider or channel with a plugin.** Ask your agent to write it, or write it yourself, in TypeScript. The
+  contracts are published, one document per operation, and the file you read is the file the runtime enforces.
 - **Register a new role.** `jason role add` puts a role of your own beside the nine.
-- **Read and change everything.** The whole product is MIT, the runtime included, with the
+- **Read everything.** The whole product is MIT, the runtime included, with the
   [source on GitHub](https://github.com/reply-team/jason-ai).
+
+### TypeScript first
+
+**TypeScript is the main language of this repository, and the one you are expected to use.**
+
+- **Everything you change is TypeScript.** Plugins, and any code you or your agent write to extend Jason, are
+  TypeScript. The plugin system is TypeScript, and so is the Reply plugin that ships ready. New providers, channels and
+  integrations belong there.
+- **The runtime is C#, and you aren't expected to change it.** It is the stable core: state, approvals, leases, routing
+  and the contracts. It changes rarely, and it is not an extension point. Extend Jason through plugins, skills, roles and
+  the Runtime API instead.
+- **The C# source is open so it can be read.** It is published for openness, so that you, Claude Code and other agents
+  can see all of the code and understand exactly how the plugin system works and what the runtime enforces. Read it to
+  learn; write TypeScript to build.
+
+> **For AI agents working in this repository:** write TypeScript. Plugins and other changes go in TypeScript against the
+> published contracts. Treat the C# runtime as read-only reference that explains how plugins are loaded, granted and
+> called, and don't propose changes to it unless a person explicitly asks for one.
 
 ---
 
@@ -540,9 +564,11 @@ For the technical reader, in one screen.
   different profiles. You sign in to the host yourself, and the profile has nowhere to put a secret. The
   [host matrix](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md#12-the-hosts) says what was
   measured on each host and what wasn't.
-- **C# today, moving to Rust.** The released runtime is C# on .NET, and it ships as a self-contained build, so you don't
-  need .NET installed. The runtime is being ported to Rust in the same repository. Until the port is done, the C# runtime
-  is the one released.
+- **TypeScript for what you build, C# underneath.** Plugins and everything users change are TypeScript. The released
+  runtime is C# on .NET, and it ships as a self-contained build, so you don't need .NET installed. It is not meant to be
+  changed by users: its source is open so people and agents can see how the plugin system works. The runtime is being
+  ported to Rust in the same repository, and until the port is done, the C# runtime is the one released.
+  [More on languages](#typescript-first).
 - **Durable by design.** Work items are claimed under a lease with one live attempt at a time. Migrations back up
   first. An update writes each step to a ledger before doing it, so one that dies halfway is finished or put back on the next
   run. Send the same create twice with one idempotency key, and you get the first result back, not a second copy.
@@ -630,6 +656,11 @@ Yes, any of them. Channels are plugins, and channel names are open. Ask your age
 [author's guide](https://github.com/reply-team/jason-ai/blob/main/docs/plugins.md). Your agent can also use any tool it's connected to and record what it did in
 Jason.
 
+**Which language do I write plugins in?**
+TypeScript. It is the main language of Jason: the plugin system, the Reply plugin and everything you are expected to
+change are TypeScript. The runtime is C#, but it is the stable core and not something you change. Its source is open so
+you and your agent can read how plugins are loaded and called. See [TypeScript first](#typescript-first).
+
 **Does Jason find leads?**
 Yes, through Reply's Live Data API or through your own search tools. Jason has no contact database of its own.
 
@@ -651,7 +682,8 @@ on one new group of prospects.
 
 **Is it open source?**
 Yes. Since 0.24.0 the whole product is MIT, the runtime included, and its
-[source and releases](https://github.com/reply-team/jason-ai) are public.
+[source and releases](https://github.com/reply-team/jason-ai) are public. The C# runtime is open so it can be read and
+checked; the code you write and change is TypeScript.
 
 **Something's wrong. What do I do?**
 Ask your agent "what's wrong with Jason?". It runs the self-check and the fix it names. Still stuck? `jason doctor`
