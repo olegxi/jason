@@ -96,16 +96,8 @@ every time a role thinks twice.
 | **Any other agent with a shell** | ✅ Through Jason's CLI and skills | Not in this release | That agent's own plan |
 
 Jason is a plain command-line program and its skills are plain Markdown, so any agent that can run a command can operate
-it. The background roles need a launcher for each host, and a short **execution profile** names which host runs the work:
-
-```sh
-jason profile create local-codex --host codex --program codex
-```
-
-You sign in to the host yourself, and the profile has nowhere to put a secret. Different work can run on different
-profiles. If no profile can run a piece of AI work, it waits and everything else keeps running. The
-[host matrix](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md#12-the-hosts) says what was
-measured on each host and what wasn't.
+it. You choose which agent runs the background work, and if none is available, that work waits while everything else
+keeps running.
 
 **Why it matters**
 
@@ -544,6 +536,10 @@ For the technical reader, in one screen.
 
 - **One executable, three modes.** The runtime owns all state. The CLI, the browser UI and your agent are all clients
   of the same local API. The source is public under MIT.
+- **You choose the host.** A short execution profile names which agent runs the work, and different work can run on
+  different profiles. You sign in to the host yourself, and the profile has nowhere to put a secret. The
+  [host matrix](https://github.com/reply-team/jason-ai/blob/main/docs/execution-profiles.md#12-the-hosts) says what was
+  measured on each host and what wasn't.
 - **C# today, moving to Rust.** The released runtime is C# on .NET, and it ships as a self-contained build, so you don't
   need .NET installed. The runtime is being ported to Rust in the same repository. Until the port is done, the C# runtime
   is the one released.
@@ -568,6 +564,7 @@ jason ui open                   # the browser UI: attention · campaigns · peop
 jason approval list --human     # read-only: everything that waits for your yes
 jason approval approve <id> ... # your yes for one item, under your name
 jason update apply              # self-update, with skills and UI; finishes or rolls back
+jason profile create local-codex --host codex --program codex  # run background roles on Codex
 ```
 
 **What leaves your machine:** what your provider plugins send to your provider, what your agent sends to its model, a
